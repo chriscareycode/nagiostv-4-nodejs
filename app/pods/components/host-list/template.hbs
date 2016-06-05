@@ -1,0 +1,31 @@
+
+<div class="color-orange" style="margin:10px 0 10px 0;">
+  Host Problems: <strong>{{nagios.hostlistDownCount}}</strong>
+</div>
+
+{{#if (if-cond nagios.hostlistDownCount '===' 0)}}
+<div class="service-item color-green font-size-1-2 animate-open">
+  <div class="padding-4">
+    All <strong>{{object-length nagios.hostlist}}</strong> hosts are UP
+  </div>
+</div>
+{{/if}}
+
+{{#each-in nagios.hostlist as |index host|}}
+{{#if (if-cond host.status '!==' 2)}}
+<div class="service-item border-red">
+	<strong>{{get host 'name'}}</strong> - {{get host "plugin_output"}}
+	-
+	Down since {{format-date host.last_state_change}}
+	-
+	Next check {{format-date host.next_check}}
+
+	{{#if host.problem_has_been_acknowledged}}
+	<span class="color-orange">ACKED</span>
+	{{/if}}
+
+</div>
+{{/if}}
+{{/each-in}}
+
+{{yield}}

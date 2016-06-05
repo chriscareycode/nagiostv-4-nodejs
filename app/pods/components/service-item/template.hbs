@@ -1,0 +1,32 @@
+
+<div class="padding-4">
+  <div>
+    <strong>{{host}}</strong>
+    {{!-- {{servicename}} --}}
+    <span class={{stateClass}}>{{get servicedetail 'description'}} -
+    {{get servicedetail "plugin_output"}}</span>
+
+    {{#if servicedetail.problem_has_been_acknowledged}}
+    <span class="color-orange">ACKED</span>
+    {{/if}}
+  </div>
+
+  <div>
+    state type: {{nagios-state-type (get servicedetail 'state_type')}} -
+    status: {{nagios-service-status (get servicedetail 'status')}}
+    ({{servicedetail.status}})
+    {{#if servicedetail.is_flapping}} - <span class="color-orange">IS FLAPPING</span>{{/if}}
+    
+    <br>
+
+    <span class="font-size-0-8">
+    last check: {{format-date (get servicedetail 'last_check')}} -
+    last update: {{format-date (get servicedetail 'last_update')}} -
+    next check: {{format-date (get servicedetail 'next_check')}}
+    </span>
+  </div>
+</div>
+
+{{yield}}
+
+

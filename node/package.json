@@ -1,0 +1,10 @@
+{
+  "name": "noderest",
+  "description": "REST API with Node",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "cors": "^2.7.1",
+    "express": "3.x"
+  }
+}

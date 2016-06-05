@@ -1,0 +1,111 @@
+body {
+  background-color: #000;
+  color: #fff;
+  font-family: sans-serif;
+}
+
+
+.display-none {
+  display: none;
+}
+.font-size-0-8 {
+  font-size: 0.8em;
+}
+.font-size-0-9 {
+  font-size: 0.9em;
+}
+.font-size-1-1 {
+  font-size: 1.1em;
+}
+.font-size-1-2 {
+  font-size: 1.2em;
+}
+
+.padding-4 {
+  padding: 4px;
+}
+.margin-4 {
+  margin: 4px;
+}
+
+
+.border-white {
+  border: 1px solid white;
+}
+
+.color-green {
+  color: lime;
+}
+.border-green {
+  border: 1px solid lime;
+}
+
+.color-yellow {
+  color: yellow;
+}
+.border-yellow {
+  border: 1px solid yellow;
+}
+
+.color-orange {
+  color: orange;
+}
+.border-orange {
+  border: 1px solid orange;
+}
+
+.color-red {
+  color: #FD7272;
+}
+.border-red {
+  border: 1px solid red;
+}
+
+
+.service-item {
+  margin: 6px 0px 6px 0px;
+  border-radius: 5px;
+  background-color: #232323;
+  overflow: hidden;
+}
+
+.notification-item {
+  padding: 4px;
+  margin: 6px 0px 6px 0px;
+  border-radius: 5px;
+  border: 0px solid #555;
+  background-color: #232323;
+  opacity: 0.7;
+}
+
+
+.animate-open {
+  animation: slideOpen 1s;
+}
+
+.animate-close {
+  animation: slideClose 1s;
+}
+
+@keyframes slideOpen {
+    from {
+      max-height: 0px;
+      opacity: 0;
+    }
+    to {
+      max-height: 70px;
+      opacity: 1;
+    }
+}
+
+@keyframes slideClose {
+    from {
+      max-height: 70px;
+      opacity: 1;
+    }
+    to {
+      max-height: 0px;
+      opacity: 0;
+      border: 0;
+    }
+}
