@@ -14,16 +14,17 @@
 {{#each-in nagios.hostlist as |index host|}}
 {{#if (if-cond host.status '!==' 2)}}
 <div class="service-item border-red">
-	<strong>{{get host 'name'}}</strong> - {{get host "plugin_output"}}
-	-
-	Down since {{format-date host.last_state_change}}
-	-
-	Next check {{format-date host.next_check}}
+  <div class="padding-4">
+  	<strong>{{get host 'name'}}</strong> - {{get host "plugin_output"}}
+  	-
+  	Down since {{format-date host.last_state_change}}
+  	-
+  	Next check {{format-date host.next_check}}
 
-	{{#if host.problem_has_been_acknowledged}}
-	<span class="color-orange">ACKED</span>
-	{{/if}}
-
+  	{{#if host.problem_has_been_acknowledged}}
+  	<span class="color-orange">ACKED</span>
+  	{{/if}}
+  </div>
 </div>
 {{/if}}
 {{/each-in}}
