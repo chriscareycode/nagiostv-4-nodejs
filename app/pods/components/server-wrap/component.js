@@ -4,14 +4,37 @@ export default Ember.Component.extend({
 
   nagios: Ember.inject.service(),
 
+  dateDriftSeconds: null,
+
+  dateDrift: 0,
+
   didInsertElement: function() {
-    let nagios = this.get('nagios');
+    const that = this;
+    const nagios = this.get('nagios');
+
     nagios.fetchUpdate();
     nagios.startTimer();
+
+    const timerForDateDrift = setInterval(function() {
+      that.timerFired();
+    }, 5000);
+
+    Ember.run.later(function() {
+      that.set('timerForDateDrift', timerForDateDrift);
+    }, 1000);
+
   },
 
   willDestroyElement: function() {
     this.get('nagios').stopTimer();
+
+    clearInterval(this.get('timerForDateDrift'));
+  },
+
+  timerFired: function() {
+    const dateLastUpdate = this.get('nagios.dateLastUpdate');
+    const dateDrift = new Date().getTime() - dateLastUpdate;
+    this.set('dateDrift', dateDrift);
   },
 
   atLeastOneServiceDownOrFlapping: Ember.computed('nagios.dateLastUpdate', function() {

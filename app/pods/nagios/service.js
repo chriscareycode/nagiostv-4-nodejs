@@ -158,8 +158,8 @@ export default Ember.Service.extend({
               }else {
                 Ember.set(the_object, d.path[0], obj_raw_data.data[obj_name][d.path[0]]);
               }
-              
-    
+
+
 
             } else {
               console.log('N unknown d', d);
@@ -178,7 +178,7 @@ export default Ember.Service.extend({
               } else {
                 Ember.set(the_object[d.path[0]], d.path[1], obj_raw_data.data[obj_name][d.path[0]][d.path[1]]);
               }
-              
+
             } else {
               console.log('E unknown d', d);
             }

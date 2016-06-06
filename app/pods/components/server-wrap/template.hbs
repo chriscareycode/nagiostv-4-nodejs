@@ -1,12 +1,20 @@
 
-<div style="margin-top: 5px;font-size: 0.8em;">Last update: {{nagios.dateLastUpdate}}</div>
+<div style="margin-top: 5px;font-size: 0.8em;">
+  Last update: {{nagios.dateLastUpdate}}
+  -
+  Drift:
+{{#if (if-cond dateDrift '>' 20000)}}
+  <span class="color-red">{{dateDrift}}</span>
+{{else}}
+  <span class="color-green">{{dateDrift}}</span>
+{{/if}}
+</div>
 
 {{!--hosts --}}
 
 {{host-list
   nagios=nagios
 }}
-
 
 {{!--services --}}
 
