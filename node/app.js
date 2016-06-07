@@ -55,7 +55,7 @@ function getNagios(req, res) {
   var path = '/nagios/cgi-bin/'+page+url_parts.search;
 
   var options = {
-    host: '10.69.1.52',
+    host: settings.nagiosServerHost,
     port: 80,
     path: path,
     auth: username+':'+password

@@ -4,7 +4,8 @@
 
 module.exports = {
 
-  username: 'changeme',
+  nagiosServerHost: '10.69.1.52',
+  username: 'nagiosadmin',
   password: 'changeme'
 
 };
