@@ -1,4 +1,14 @@
-Quiet for <strong>{{calculateQuietFor}}</strong> minutes<br>
-{{days}} days {{hours}} hours {{minutes}} minutes {{seconds}} seconds
+Quiet for
+
+{{#if days}}
+<strong>{{days}}</strong> days
+{{/if}}
+
+{{#if hours}}
+<strong>{{hours}}</strong> hours
+{{/if}}
+
+<strong>{{minutes}}</strong> minutes
+<strong>{{seconds}}</strong> seconds
 
 {{yield}}

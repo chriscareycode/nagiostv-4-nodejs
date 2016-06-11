@@ -7,7 +7,14 @@ export default Ember.Component.extend({
   minutes: 0,
   seconds: 0,
 
-  calculateQuietFor: Ember.computed('updateTrigger', function() {
+  init: function() {
+    this._super(...arguments);
+    Ember.run.next(() => {
+      this.calculateQuietFor();
+    });
+  },
+
+  calculateQuietFor: Ember.observer('updateTrigger', function() {
 
     let date_future = this.get('timestamp');
     let index = this.get('index');

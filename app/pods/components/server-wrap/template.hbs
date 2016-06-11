@@ -1,6 +1,6 @@
 
 <div style="margin-top: 5px;font-size: 0.8em;">
-  Last update: {{nagios.dateLastUpdate}}
+  <strong>Last update:</strong> {{nagios.dateLastUpdate}}
   -
   Drift:
 {{#if (if-cond dateDrift '>' 20000)}}
@@ -8,6 +8,10 @@
 {{else}}
   <span class="color-green">{{dateDrift}}</span>
 {{/if}}
+</div>
+
+<div style="margin-top: 4px;font-size: 0.8em;">
+  <strong>Node Server:</strong> {{nagios.serverBaseUrl}}
 </div>
 
 {{!--hosts --}}
