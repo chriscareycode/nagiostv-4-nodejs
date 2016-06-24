@@ -2,9 +2,11 @@
 <div style="margin-top: 5px;font-size: 0.8em;">
   <strong>Last update:</strong> {{nagios.dateLastUpdate}}
   -
+  <strong>Refresh Interval:</strong> {{nagios.timerIntervalSeconds}}s
+  -
   Drift:
 {{#if (if-cond dateDrift '>' 20000)}}
-  <span class="color-red">{{dateDrift}}</span>
+  <span class="color-red">{{dateDrift}} DISCONNECTED</span>
 {{else}}
   <span class="color-green">{{dateDrift}}</span>
 {{/if}}
@@ -57,13 +59,24 @@
   </div>
 {{/each-in}}
 
-{{!--notification list --}}
+{{!--alert list --}}
 
 <div class="color-orange" style="margin-top: 10px;padding-bottom: 3px;">
+  Alert History: <strong>{{nagios.alertlist.length}}</strong>
+</div>
+
+{{alert-list
+  alertlist=nagios.alertlist
+  dateLastUpdate=nagios.dateLastUpdate
+}}
+
+{{!--notification list --}}
+
+{{!-- <div class="color-orange" style="margin-top: 10px;padding-bottom: 3px;">
   Notification History: <strong>{{nagios.notificationlist.length}}</strong>
 </div>
 
 {{notification-list
   notificationlist=nagios.notificationlist
   dateLastUpdate=nagios.dateLastUpdate
-}}
+}} --}}

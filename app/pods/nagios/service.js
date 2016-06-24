@@ -8,14 +8,15 @@ import Ember from 'ember';
 
 export default Ember.Service.extend({
 
-  serverBaseUrl: 'http://10.69.1.58:3000/nagios/',
+  serverBaseUrl: 'http://10.69.1.3:3000/nagios/',
 
   timerIntervalSeconds: 15,
   timerHandle: null,
 
   hostlist: {},
   servicelist: {},
-  notificationlist: [],
+  //notificationlist: [],
+  alertlist: [],
 
   dateLastUpdate: null,
 
@@ -111,17 +112,31 @@ export default Ember.Service.extend({
     // TODO: move this onto it's own timer
     var starttime = '-1000000';
 
-    $.getJSON(baseUrl+'archivejson.cgi?query=notificationlist&starttime='+starttime+'&endtime=%2B0').then(function(data) {
+    // $.getJSON(baseUrl+'archivejson.cgi?query=notificationlist&starttime='+starttime+'&endtime=%2B0').then(function(data) {
+    //   // sort the list newest first
+    //   data.data.notificationlist = data.data.notificationlist.sort(function(o1, o2) {
+    //     if (o1.timestamp < o2.timestamp) { return 1; }
+    //     else if(o1.timestamp > o2.timestamp) { return  -1; }
+    //     else { return  0; }
+    //   });
+
+    //   // perform diff and set the data
+    //   that.diffFromNagios4('notificationlist', data);
+    // });
+
+    // alertlist
+    $.getJSON(baseUrl+'archivejson.cgi?query=alertlist&starttime='+starttime+'&endtime=%2B0').then(function(data) {
       // sort the list newest first
-      data.data.notificationlist = data.data.notificationlist.sort(function(o1, o2) {
+      data.data.alertlist = data.data.alertlist.sort(function(o1, o2) {
         if (o1.timestamp < o2.timestamp) { return 1; }
         else if(o1.timestamp > o2.timestamp) { return  -1; }
         else { return  0; }
       });
 
       // perform diff and set the data
-      that.diffFromNagios4('notificationlist', data);
+      that.diffFromNagios4('alertlist', data);
     });
+
 
   }, // fetchUpdateFromNagios4()
 

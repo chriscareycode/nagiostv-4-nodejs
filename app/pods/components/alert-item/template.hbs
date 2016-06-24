@@ -1,0 +1,39 @@
+{{!-- show notification-item --}}
+
+{{index}}
+
+
+{{#if (if-cond item.object_type '===' 1)}}
+  HOST
+  {{item.name}}
+{{/if}}
+
+{{#if (if-cond item.object_type '===' 2)}}
+  SERVICE
+  {{get item 'description'}} on {{get item 'host_name'}}
+{{/if}}
+
+
+{{!-- {{#if item.name}}
+{{item.name}}
+{{else}}
+{{get item 'description'}} on {{get item 'host_name'}}
+{{/if}} --}}
+-
+<span class={{stateClass}}>{{get item "plugin_output"}}</span>
+
+-
+
+
+state: {{item.state}}
+state_type: {{stateTypeString}} ({{item.state_type}})
+
+{{!-- {{nagios-alert-type (get item 'state_type')}}
+
+({{get item 'state_type'}}) --}}
+
+-
+
+{{format-date (get item 'timestamp')}}
+
+{{yield}}

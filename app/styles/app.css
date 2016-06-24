@@ -4,6 +4,9 @@ body {
   font-family: sans-serif;
 }
 
+h2 {
+  margin: 9px 0;
+}
 
 .display-none {
   display: none;
@@ -70,6 +73,15 @@ body {
 }
 
 .notification-item {
+  padding: 4px;
+  margin: 6px 0px 6px 0px;
+  border-radius: 5px;
+  border: 0px solid #555;
+  background-color: #232323;
+  opacity: 0.7;
+}
+
+.alert-item {
   padding: 4px;
   margin: 6px 0px 6px 0px;
   border-radius: 5px;

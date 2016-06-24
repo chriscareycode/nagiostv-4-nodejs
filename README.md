@@ -4,6 +4,7 @@ This is a version of NagiosTV for Nagios4 servers.
 
 Nagios4 comes with new JSON CGI's
 https://labs.nagios.com/2014/06/19/exploring-the-new-json-cgis-in-nagios-core-4-0-7-part-1/
+out of the box which makes this the fastest, lightest, simplest NagiosTV yet.
 
 NagiosTV
 ------------
@@ -19,12 +20,6 @@ Screenshot of 5 Nagios servers on one TV (5-in-1)
 ------------
 
 ![Display](http://chriscarey.com/projects/ajax-monitor-for-nagios/nagios-5-in-1.png)
-
-
-TODO
-------------
-
-Node.js
 
 Requirements
 ------------
@@ -75,6 +70,7 @@ Features to work on next
 - Fix support for Nagios elements with a period in the name
 - Edit Node server from the browser
 - Edit Nagios server from the browser (send to node) <- thats cool
+https://docs.nodejitsu.com/articles/file-system/how-to-store-local-config-data/
 
 
 Credits
