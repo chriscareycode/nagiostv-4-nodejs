@@ -15,10 +15,13 @@ export default Ember.Component.extend({
   timerHandle: null,
   timerFired: 0,
 
+  animateInterval: 4 * 1000,
+
   didInsertElement: function() {
+    const animateInterval = this.get('animateInterval');
     const timerHandle = setInterval(() => {
       this.set('timerFired', new Date().getTime());
-    }, 2000);
+    }, animateInterval);
     Ember.run.next(() => {
       this.set('timerHandle', timerHandle);
     });
