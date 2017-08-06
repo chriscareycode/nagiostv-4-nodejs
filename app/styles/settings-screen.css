@@ -1,0 +1,40 @@
+.settings-screen {
+  border: 2px solid #666;
+  border-top: 0;
+  /*height: 200px;*/
+  position: absolute;
+  top: 0;
+  right: 10vw;
+  left: 10vw;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.85);
+  z-index: 2;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+div.settings-screen input {
+  width: 50%;
+  font-size: 1.2em;
+}
+
+div.settings-screen select {
+  font-size: 1.2em;
+}
+
+div.settings-screen button {
+  margin-top: 10px;
+  width: 20%;
+  font-size: 1.2em;
+}
+
+
+div.settings-button button {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+}
+
+.className{
+
+}
