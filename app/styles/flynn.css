@@ -3,6 +3,9 @@
   height: 64px;
   width: 48px;
   display: inline-block;
+
+  transform: scale(2);
+  transform-origin: 100% 0%;
 }
 
 .flynn1 {background-position:0px 0px}
