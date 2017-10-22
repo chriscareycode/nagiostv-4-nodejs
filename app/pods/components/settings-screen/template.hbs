@@ -1,24 +1,16 @@
-{{#if isSettingsOpen}}
-{{!-- <div class="settings-button"><button disabled={{isAnimating}} {{action 'closeAction'}}>Close</button></div> --}}
-<div class="settings-button">111{{#link-to 'application'}}Close{{/link-to}}</div>
-{{else}}
-<div class="settings-button">222<button disabled={{isAnimating}} {{action 'openAction'}}>Settings</button></div>
-{{/if}}
 
-<div class="settings-screen display-none">
+
+<div class="settings-screen">
 
   <h4>NagiosTV Configuration</h4>
 
   <div style="border: 2px solid #ccc;padding: 10px;">
 
+    <h4>Local Settings</h4>
+
     <div class="margin-top-10">
       Title:
       <div>{{input type='text' value=nagios.settings.title}}</div>
-    </div>
-
-    <div class="margin-top-10">
-      Icon URL: <img src={{nagios.settings.iconUrl}} style="width: 30px;">
-      <div>{{input type='text' value=nagios.settings.iconUrl}}</div>
     </div>
 
     <div class="margin-top-10">
@@ -35,6 +27,8 @@
   </div>
 
   <div class="margin-top-10" style="border: 2px solid #ccc;padding: 10px;">
+
+    <h4>Node.js Server Configuration</h4>
 
     <div class="margin-top-20">
       Connected to {{nagios.settings.nodeServer}}
@@ -80,6 +74,7 @@
 
     <div class="margin-top-10">
       <button {{action 'saveServerAction'}}>Save to Server</button>
+      {{#link-to 'index'}}Back to Home{{/link-to}}
     </div>
 
   </div>

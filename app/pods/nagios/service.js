@@ -27,6 +27,8 @@ export default Ember.Service.extend({
   timerIntervalSeconds: 15,
   timerHandle: null,
 
+  connectionStatus: '',
+
   hostlist: {},
   servicelist: {},
   //notificationlist: [],
@@ -139,12 +141,13 @@ export default Ember.Service.extend({
    **************************************/
 
   startTimer: function() {
-    const that = this;
+    // Fetch one right away
+    this.fetchUpdate();
     const timerIntervalSeconds = this.get('timerIntervalSeconds');
-    this.set('isPolling', true);
-    const timerHandle = setInterval(function() {
-      that.fetchUpdate();
+    const timerHandle = setInterval(() => {
+      this.fetchUpdate();
     }, timerIntervalSeconds * 1000);
+    this.set('isPolling', true);
     this.set('timerHandle', timerHandle);
   },
 
@@ -203,8 +206,13 @@ export default Ember.Service.extend({
     //   that.diffFromNagios4('notificationlist', data);
     // });
 
+    this.set('connectionStatus', 'Connecting...');
+
     // alertlist
-    $.getJSON(baseUrl+'nagios/archivejson.cgi?query=alertlist&starttime='+starttime+'&endtime=%2B0').then(function(data) {
+    $.getJSON(baseUrl+'nagios/archivejson.cgi?query=alertlist&starttime='+starttime+'&endtime=%2B0').then((data) => {
+
+      this.set('connectionStatus', 'Connected.');
+
       // sort the list newest first
       data.data.alertlist = data.data.alertlist.sort(function(o1, o2) {
         if (o1.timestamp < o2.timestamp) { return 1; }

@@ -1,11 +1,6 @@
 .settings-screen {
   border: 2px solid #666;
   border-top: 0;
-  /*height: 200px;*/
-  position: absolute;
-  top: 0;
-  right: 10vw;
-  left: 10vw;
   padding: 10px;
   background-color: rgba(0, 0, 0, 0.85);
   z-index: 2;

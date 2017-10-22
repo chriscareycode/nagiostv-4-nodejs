@@ -41,12 +41,12 @@ export default Ember.Component.extend({
   },
 
   didInsertElement: function() {
-    setTimeout(() => {
-      // set the handle
-      this.set('divHandle', this.$());
-      // open the settings screen
-      this.openMe();
-    }, 100);
+    // setTimeout(() => {
+    //   // set the handle
+    //   this.set('divHandle', this.$());
+    //   // open the settings screen
+    //   this.openMe();
+    // }, 100);
   },
 
   openMe: function() {

@@ -5,3 +5,10 @@
 
 @import 'flynn.css';
 
+a {
+  color: white;
+}
+h4 {
+  margin-top: 2px;
+  margin-bottom: 2px;
+}

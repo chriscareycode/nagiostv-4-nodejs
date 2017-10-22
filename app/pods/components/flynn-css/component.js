@@ -34,33 +34,25 @@ export default Ember.Component.extend({
     }
   },
 
-  // howManyDownWatcher: Ember.observer('howManyDown', function() {
-  //   const howManyDown = this.get('howManyDown');
-  //   console.log('howManyDown: ' + howManyDown);
-  // }),
-
   happyClasses: ['flynn1', 'flynn6', 'flynn11'],
-  angryClasses: ['flynn2', 'flynn3', 'flynn7', 'flynn8', 'flynn12', 'flynn13', 'flynn16', 'flynn17', 'flynn18'],
-  bloodyClasses: ['flynn4', 'flynn5', 'flynn9', 'flynn10', 'flynn14', 'flynn15', 'flynn19', 'flynn24', 'flynn25'],
+  angryClasses: ['flynn2', 'flynn3', 'flynn7', 'flynn8', 'flynn12', 'flynn13', 'flynn16', 'flynn17', 'flynn18', 'flynn19'],
+  bloodyClasses: ['flynn4', 'flynn5', 'flynn9', 'flynn10', 'flynn14', 'flynn15', 'flynn24', 'flynn25'],
 
   flynnClass: Ember.computed('howManyDown', 'timerFired', function() {
     const howManyDown = this.get('howManyDown');
     console.log('howManyDown: ' + howManyDown);
 
+    let classes;
     let flynnClass;
     if (howManyDown === 0) {
-      const happyClasses = this.get('happyClasses');
-      const item = happyClasses[Math.floor(Math.random()*happyClasses.length)];
-      flynnClass = 'flynn ' + item;
+      classes = this.get('happyClasses');
     } else if (howManyDown < 4) {
-      const angryClasses = this.get('angryClasses');
-      const item = angryClasses[Math.floor(Math.random()*angryClasses.length)];
-      flynnClass = 'flynn ' + item;
+      classes = this.get('angryClasses');
     } else {
-      const bloodyClasses = this.get('bloodyClasses');
-      const item = bloodyClasses[Math.floor(Math.random()*bloodyClasses.length)];
-      flynnClass = 'flynn ' + item;
+      classes = this.get('bloodyClasses');
     }
+    const item = classes[Math.floor(Math.random()*classes.length)];
+    flynnClass = 'flynn ' + item;
     return flynnClass;
   })
 

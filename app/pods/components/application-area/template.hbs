@@ -4,13 +4,15 @@
 }}
 </div>
 
-{{#link-to 'settings'}}Settings{{/link-to}}
+
 
 <h2>
   <img src={{nagios.settings.iconUrl}} style="width: 30px;"> {{nagios.settings.title}}
 </h2>
 
 <div style="margin-top: 5px;font-size: 0.8em;">
+
+  <strong>connectionStatus:</strong> {{nagios.connectionStatus}}<br>
 
   <strong>isPolling:</strong> {{nagios.isPolling}}<br>
 
