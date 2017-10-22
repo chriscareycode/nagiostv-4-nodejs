@@ -44,6 +44,7 @@ and the Node.js server talks to Nagios 4 JSON CGIs.
 
 Start the Node.js server like this:
 $ cd nagiostv-4/node
+$ npm install
 $ node app.js
 
 Now you should be able to hit http://<server-ip-address>:3000 and see the application.
