@@ -55,15 +55,20 @@ Upgrading
 - $ cd nagiostv-4
 - $ git pull
 
-Your customized config file (node/settings.js) will not be overwritten.
-  You may want to check config.php.dist and config.js.dist for new options
+Your customized config files (config.js) and (node/settings.js) will not be overwritten.
+  You may want to check config.dist.js and node/settings.js.dist for new options
   until I get around to automating that process.
   
 Development
 ------------
 - Install ember-cli
-- TODO
-
+- npm install -g bower
+- git clone https://github.com/chriscareycode/nagiostv-4.git
+- $ cd nagiostv-4/node
+- $ npm install
+- $ bower install
+- $ cp settings.dist.js settings.js
+- edit settings.js with your own settings
 
 TODO
 ------------
@@ -72,7 +77,6 @@ Features to work on next
 - Edit Node server from the browser
 - Edit Nagios server from the browser (send to node) <- thats cool
 https://docs.nodejitsu.com/articles/file-system/how-to-store-local-config-data/
-
 
 Credits
 ------------
