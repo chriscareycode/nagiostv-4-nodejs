@@ -15,7 +15,6 @@ var cors = require('cors');
 var http = require('http');
 var url = require('url');
 var fs = require('fs');
-
 var bodyParser = require('body-parser');
 
 //=============================================================================
@@ -47,9 +46,6 @@ if (settings.username === 'changeme') {
 
 function getNagios(req, res) {
 
-  //var username = settings.username;
-  //var password = settings.password;
-
   //var auth = 'Basic ' + new Buffer(settings.username + ':' + settings.password).toString('base64');
   var page = req.params.page;
   var url_parts = url.parse(req.url, true);
@@ -67,7 +63,7 @@ function getNagios(req, res) {
   // console.log('queryparams');
   // console.log(queryparams);
 
-  var path = '/nagios/cgi-bin/'+page+url_parts.search;
+  var path = settings.nagiosServerPath + page + url_parts.search;
 
   var options = {
     host: settings.nagiosServerHost,
@@ -76,22 +72,19 @@ function getNagios(req, res) {
   };
 
   // add auth to the payload if settings.auth === true
-  if (settings.auth) { options.auth = settings.username+':'+settings.password; }
+  if (settings.auth) { options.auth = settings.username + ':' + settings.password; }
 
   console.log('requesting URL ' + options.host + ':' + options.port + options.path);
 
-  http.get(options, function(resp){
+  http.get(options, function(resp) {
     //resp.setEncoding('utf8');
     var body = '';
-
-    resp.on('data', function(chunk){
+    resp.on('data', function(chunk) {
       body += chunk;
     });
     resp.on('end', function(){
-      //do something with chunk
       if (body === '') {
           console.log('body is empty. sending default');
-          //res.redirect('/images/broken-image.gif');
           return;
       }
       res.setHeader('Content-Type', 'application/json');
@@ -101,7 +94,6 @@ function getNagios(req, res) {
     console.log("Got error: " + e.message);
     res.send('Got error: ' + e.message);
   }).end();
-
   return;
 }
 
@@ -111,7 +103,6 @@ function getNagios(req, res) {
 
 function loadSettings(req, res) {
   console.log('loadSettings');
-  //console.log(req);
   const settingsNoPassword = {};
   for (var s in settings) {
     if (s !== 'password') {
@@ -123,29 +114,24 @@ function loadSettings(req, res) {
 
 function saveSettings(req, res) {
   console.log('saveSettings');
-  console.log(req.body);
-
+  //console.log(req.body);
   var text = 'module.exports = ' + JSON.stringify(req.body, null, "\t");
-
   fs.writeFile('settings-json.js', text, function(err) {
     if(err) {
-
       res.send({
         success: false,
         successMessage: 'Failure writing to file.'
       });
-
       return console.log(err);
     }
+
     console.log("The file was saved!");
 
     res.send({
       success: true,
       successMessage: 'Thanks for the settings.'
     });
-
   });
-
 
 }
 
@@ -155,7 +141,7 @@ function saveSettings(req, res) {
 
 app.use(cors());
 
-app.use( bodyParser.json() );       // to support JSON-encoded bodies
+app.use(bodyParser.json());       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
 }));
