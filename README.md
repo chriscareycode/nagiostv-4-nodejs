@@ -61,21 +61,30 @@ Your customized config files (config.js) and (node/settings.js) will not be over
   
 Development
 ------------
-- Install ember-cli
+- npm install -g ember
 - npm install -g bower
 - git clone https://github.com/chriscareycode/nagiostv-4.git
-- $ cd nagiostv-4/node
+- $ cd nagiostv-4
+
+# Start the Node.js server (you need to open a new terminal window)
+- $ cd node
+- $ cp settings.dist.js settings.js
+# edit settings.js with your own settings
+# start Node.js
+- $ node app.js
+
+# Start Ember.js
+# change directory to nagiostv-4
 - $ npm install
 - $ bower install
-- $ cp settings.dist.js settings.js
-- edit settings.js with your own settings
+- $ npm start
 
 TODO
 ------------
 Features to work on next
 - Fix support for Nagios elements with a period in the name
 - Edit Node server from the browser
-- Edit Nagios server from the browser (send to node) <- thats cool
+- Edit Nagios server from the browser?
 https://docs.nodejitsu.com/articles/file-system/how-to-store-local-config-data/
 
 Credits
