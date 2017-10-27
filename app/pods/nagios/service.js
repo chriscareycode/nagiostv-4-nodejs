@@ -178,12 +178,12 @@ export default Ember.Service.extend({
 
     var baseUrl = this.get('settings.nodeServer');
 
-    $.getJSON(baseUrl+'nagios/statusjson.cgi?query=hostlist&details=true').then(function(data) {
+    $.getJSON(baseUrl + 'nagios/statusjson.cgi?query=hostlist&details=true').then(function(data) {
       // perform diff and set the data
       that.diffFromNagios4('hostlist', data);
     });
 
-    $.getJSON(baseUrl+'nagios/statusjson.cgi?query=servicelist&details=true').then(function(data) {
+    $.getJSON(baseUrl + 'nagios/statusjson.cgi?query=servicelist&details=true').then(function(data) {
       // perform diff and set the data
       that.diffFromNagios4('servicelist', data);
 

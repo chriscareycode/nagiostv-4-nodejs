@@ -12,10 +12,11 @@
 var express = require('express');
 var app = express();
 var cors = require('cors');
-var http = require('http');
-var url = require('url');
+//var http = require('http');
+//var url = require('url');
 var fs = require('fs');
 var bodyParser = require('body-parser');
+var requestProxy = require('express-request-proxy');
 
 //=============================================================================
 // Settings
@@ -30,7 +31,7 @@ try {
   if (stats.isFile()) { console.log('settings.js file found.'); }
 }
 catch (e) {
-  console.log('Copy the file settings.dist.js to settings.js');
+  console.log('Copy the file settings.dist.js to settings.js and edit settings.js');
   process.exit();
 }
 
@@ -38,63 +39,6 @@ catch (e) {
 if (settings.username === 'changeme') {
   console.log('Please set username and password for Nagios web interface in settings.js');
   process.exit();
-}
-
-//=============================================================================
-// Private Functions
-//=============================================================================
-
-function getNagios(req, res) {
-
-  //var auth = 'Basic ' + new Buffer(settings.username + ':' + settings.password).toString('base64');
-  var page = req.params.page;
-  var url_parts = url.parse(req.url, true);
-  var queryparams = url_parts.query;
-
-  // console.log('req.url');
-  // console.log(req.url);
-
-  // console.log('url_parts');
-  // console.log(url_parts);
-
-  // console.log('params');
-  // console.log(req.params);
-
-  // console.log('queryparams');
-  // console.log(queryparams);
-
-  var path = settings.nagiosServerPath + page + url_parts.search;
-
-  var options = {
-    host: settings.nagiosServerHost,
-    port: 80,
-    path: path
-  };
-
-  // add auth to the payload if settings.auth === true
-  if (settings.auth) { options.auth = settings.username + ':' + settings.password; }
-
-  console.log('requesting URL ' + options.host + ':' + options.port + options.path);
-
-  http.get(options, function(resp) {
-    //resp.setEncoding('utf8');
-    var body = '';
-    resp.on('data', function(chunk) {
-      body += chunk;
-    });
-    resp.on('end', function(){
-      if (body === '') {
-          console.log('body is empty. sending default');
-          return;
-      }
-      res.setHeader('Content-Type', 'application/json');
-      res.send(body);
-    });
-  }).on("error", function(e){
-    console.log("Got error: " + e.message);
-    res.send('Got error: ' + e.message);
-  }).end();
-  return;
 }
 
 //=============================================================================
@@ -124,9 +68,7 @@ function saveSettings(req, res) {
       });
       return console.log(err);
     }
-
     console.log("The file was saved!");
-
     res.send({
       success: true,
       successMessage: 'Thanks for the settings.'
@@ -141,25 +83,38 @@ function saveSettings(req, res) {
 
 app.use(cors());
 
-app.use(bodyParser.json());       // to support JSON-encoded bodies
-app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+// to support JSON-encoded bodies
+app.use(bodyParser.json());
+
+// to support URL-encoded bodies
+app.use(bodyParser.urlencoded({
   extended: true
 }));
 
 app.use('/', express.static('../dist'));
 
+// GET Load settings
 app.get('/settings', function(req, res) {
    loadSettings(req, res);
 });
 
+// POST Save settings
 app.post('/settings', function(req, res) {
    saveSettings(req, res);
 });
 
-app.get('/nagios/:page', function(req, res) {
-   getNagios(req, res);
-});
+// Proxy to Nagios server
+var proxyOptions = {
+  url: settings.nagiosServerHost + settings.nagiosServerPath + ':resource'
+};
+if (settings.auth) {
+  proxyOptions.headers = {
+    Authorization: "Basic " + new Buffer(settings.username + ':' + settings.password).toString('base64')
+  };
+}
+app.get('/nagios/:resource', requestProxy(proxyOptions));
 
-app.listen(3000);
+// Server listen on port
+app.listen(settings.serverPort);
 
-console.log('Listening on port 3000...');
+console.log('Listening on port ' + settings.serverPort + '...');

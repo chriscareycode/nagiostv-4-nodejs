@@ -4,7 +4,9 @@
 
 module.exports = {
 
-  nagiosServerHost: '10.69.1.52',
+  serverPort: 3000,
+  
+  nagiosServerHost: 'http://10.69.1.52',
   nagiosServerPath: '/nagios/cgi-bin/',
   auth: true,
   username: 'nagiosadmin',
