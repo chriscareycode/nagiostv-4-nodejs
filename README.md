@@ -21,63 +21,48 @@ Screenshot of 5 Nagios servers on one TV (5-in-1)
 
 ![Display](http://chriscarey.com/projects/ajax-monitor-for-nagios/nagios-5-in-1.png)
 
-Requirements
-------------
 
-Node.js
+I need to get a build system in place so users can just download the latest build.
 
-Installation
-------------
-
-- git clone https://github.com/chriscareycode/nagiostv-4.git
-- $ cd nagiostv-4/node
-- $ npm install
-- $ cp settings.dist.js settings.js
-- edit settings.js with your own settings
 
 Running NagiosTV 4
 -------------
-The JSON CGIs provided with Nagios 4 do not currently support CORS. Instead of patching Nagios,
-we use a Node.js server to proxy commands over to the JSON CGIs and handle authentication to those CGIs.
-This bypasses the JavaScript cross origin issues. The JavaScript application talks to the Node.js server,
-and the Node.js server talks to Nagios 4 JSON CGIs.
+We are now able to connect the web application direct to Nagios CGIs with a couple changes on the Nagios Apache server.
 
-Start the Node.js server like this:
-$ cd nagiostv-4/node
-$ npm install
-$ node app.js
+Changes needed for Nagios Apache server
+-------------
 
-Now you should be able to hit http://<server-ip-address>:3000 and see the application.
-If you are working on the same machine running the server, it would be http://localhost:3000
+/etc/apache/sites-enabled/nagios.conf
+
+Inside <Directory>
+  Header set Access-Control-Allow-Headers "authorization" 
+  Header always set Access-Control-Allow-Origin "*"
+
+<LimitExcept OPTIONS>
+  Require valid-user
+</LimitExcept>
 
 Upgrading
 ------------
 - $ cd nagiostv-4
 - $ git pull
+- $ ember build
+- # copy the contents of the dist/ directory to your web server
 
-Your customized config files (config.js) and (node/settings.js) will not be overwritten.
-  You may want to check config.dist.js and node/settings.js.dist for new options
-  until I get around to automating that process.
-  
 Development
 ------------
 - npm install -g ember
 - npm install -g bower
 - git clone https://github.com/chriscareycode/nagiostv-4.git
 - $ cd nagiostv-4
-
-# Start the Node.js server (you need to open a new terminal window)
-- $ cd node
-- $ cp settings.dist.js settings.js
-# edit settings.js with your own settings
-# start Node.js
-- $ node app.js
-
-# Start Ember.js
-# change directory to nagiostv-4
 - $ npm install
 - $ bower install
 - $ npm start
+
+Development Requirements
+------------
+
+Node.js
 
 TODO
 ------------
