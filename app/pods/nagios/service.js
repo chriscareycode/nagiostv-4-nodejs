@@ -2,6 +2,8 @@
 /*jshint unused:false*/
 
 /*
+ * Nagios Ember Service
+ *
  * TODO: convert convertHostListFromNagios4 into a shared with convertServiceListFromNagios4
  */
 import Ember from 'ember';
@@ -11,11 +13,8 @@ export default Ember.Service.extend({
   settings: {
     title: 'NagiosTV 4',
     iconUrl: '/images/tv-xxl.png'
-    //nodeServer: 'http://10.69.1.3:3000/' //TODO: need to load from config
-
   },
 
-  //?
   remoteSettings: {
     nagiosServer: 'http://bigwood',
     nagiosServerCgiPath: '/nagios/cgi-bin',
@@ -98,49 +97,6 @@ export default Ember.Service.extend({
     // TODO
   },
 
-  // fetchNodeSettings: function() {
-  //   console.log('fetchNodeSettings()');
-  //   var that = this;
-  //   var baseUrl = this.get('settings.nodeServer');
-
-  //   $.getJSON(baseUrl+'settings').then(function(data) {
-  //     console.log('fetchNodeSettings() success', data);
-
-  //     //TODO
-
-  //     that.set('remoteSettings.nagiosServerHost', data.nagiosServerHost);
-  //     that.set('remoteSettings.auth', data.auth);
-  //     that.set('remoteSettings.username', data.username);
-
-  //   }, function(err) {
-  //     console.log('fetchNodeSettings() error fetching node settings', err);
-  //   });
-
-  // },
-
-  // saveNodeSettings: function() {
-  //   console.log('saveNodeSettings()');
-
-  //   var baseUrl = this.get('settings.nodeServer');
-
-  //   var remoteSettings = this.get('remoteSettings');
-
-  //   // add password to the payload if auth is enabled
-  //   remoteSettings.password = 'bleh';
-
-  //   // var dataToBeSent = {
-  //   //   one: 'oneeee*******************************++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++',
-  //   //   two: 'two'
-  //   // }
-
-  //   $.post(baseUrl+'settings', remoteSettings, function(data, textStatus) {
-  //     //data contains the JSON object
-  //     //textStatus contains the status: success, error, etc
-  //     console.log('saveNodeSettings() success', data, textStatus);
-  //   }, 'json');
-
-  // },
-
   /**************************************
    * Timers
    **************************************/
@@ -178,11 +134,6 @@ export default Ember.Service.extend({
         headers: {
           "Authorization": "Basic " + btoa(username + ":" + password)
         },
-        //whatever you need
-        // beforeSend: function (xhr) {
-        //   //xhr.setRequestHeader('REMOTE_USER', username);
-        //   xhr.setRequestHeader('Authorization', 'Basic ' + btoa(username, password));
-        // },
         success: function(data) {
           console.log('got data', data);
           resolve(data);
@@ -216,18 +167,6 @@ export default Ember.Service.extend({
 
     // TODO: move this onto it's own timer
     var starttime = '-200000';
-
-    // $.getJSON(baseUrl+'archivejson.cgi?query=notificationlist&starttime='+starttime+'&endtime=%2B0').then(function(data) {
-    //   // sort the list newest first
-    //   data.data.notificationlist = data.data.notificationlist.sort(function(o1, o2) {
-    //     if (o1.timestamp < o2.timestamp) { return 1; }
-    //     else if(o1.timestamp > o2.timestamp) { return  -1; }
-    //     else { return  0; }
-    //   });
-
-    //   // perform diff and set the data
-    //   that.diffFromNagios4('notificationlist', data);
-    // });
 
     this.set('connectionStatus', 'Connecting...');
 
