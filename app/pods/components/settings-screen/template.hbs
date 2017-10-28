@@ -14,35 +14,14 @@
     </div>
 
     <div class="margin-top-10">
-      Node Server (https://10.0.0.1:3000/):
-      <div>{{input type='text' value=nagios.settings.nodeServer}}</div>
-    </div>
-
-    <div class="margin-top-10">
-      <button {{action 'saveAction'}}>Save</button>
-
-      {{#link-to 'application'}}Close{{/link-to}}
-    </div>
-
-  </div>
-
-  <div class="margin-top-10" style="border: 2px solid #ccc;padding: 10px;">
-
-    <h4>Node.js Server Configuration</h4>
-
-    <div class="margin-top-20">
-      Connected to {{nagios.settings.nodeServer}}
-    </div>
-
-    <div class="margin-top-10">
       Nagios Server:
-      <div>{{input type='text' value=nagios.remoteSettings.nagiosServerHost}}</div>
+      <div>{{input type='text' value=nagios.remoteSettings.nagiosServer}}</div>
     </div>
 
-    {{!-- <div class="margin-top-10">
-      Nagios Server CGI path:
+    <div class="margin-top-10">
+      Nagios Server CGI Path:
       <div>{{input type='text' value=nagios.remoteSettings.nagiosServerCgiPath}}</div>
-    </div> --}}
+    </div>
 
     <div class="margin-top-10">
       Nagios Server Authentication Enabled: {{nagios.remoteSettings.auth}}
@@ -55,13 +34,6 @@
     </div>
 
     <div class="margin-top-10">
-      Set Username/Password:
-      <div>{{input type='checkbox' checked=isSettingUsernamePassword}} Edit</div>
-    </div>
-
-{{#if isSettingUsernamePassword}}
-
-    <div class="margin-top-10">
       Nagios Server Username:
       <div>{{input type='text' value=nagios.remoteSettings.username}}</div>
     </div>
@@ -70,11 +42,11 @@
       Nagios Server Password:
       <div>{{input type='password' value=nagios.remoteSettings.password}}</div>
     </div>
-{{/if}}
 
     <div class="margin-top-10">
-      <button {{action 'saveServerAction'}}>Save to Server</button>
-      {{#link-to 'index'}}Back to Home{{/link-to}}
+      <button {{action 'saveAction'}}>Save</button>
+
+      {{#link-to 'application'}}Close{{/link-to}}
     </div>
 
   </div>

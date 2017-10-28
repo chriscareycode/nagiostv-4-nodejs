@@ -15,7 +15,7 @@ export default Ember.Component.extend({
 
     nagios.fetchLocalSettings();
 
-    nagios.fetchNodeSettings();
+    //nagios.fetchNodeSettings();
 
 
     //TODO - only if the settings are ready, fetchUpdate and startTimer

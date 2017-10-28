@@ -10,14 +10,19 @@ export default Ember.Service.extend({
 
   settings: {
     title: 'NagiosTV 4',
-    iconUrl: '/images/tv-xxl.png',
-    nodeServer: 'http://10.69.1.3:3000/' //TODO: need to load from config
+    iconUrl: '/images/tv-xxl.png'
+    //nodeServer: 'http://10.69.1.3:3000/' //TODO: need to load from config
+
   },
 
+  //?
   remoteSettings: {
+    nagiosServer: 'http://bigwood',
+    nagiosServerCgiPath: '/nagios/cgi-bin',
     nagiosServerHost: '10.69.1.23',
     auth: true,
-    username: ''
+    username: 'nagiosadmin',
+    password: ''
   },
 
   //cgi-bin/statusjson.cgi
@@ -85,7 +90,7 @@ export default Ember.Service.extend({
     console.log('fetchLocalSettings()');
     // TODO
     console.log(document.location);
-    this.set('settings.nodeServer', 'http://' + document.location.hostname + ':3000/');
+    //this.set('settings.nodeServer', 'http://' + document.location.hostname + ':3000/');
   },
 
   saveLocalSettings: function() {
@@ -93,48 +98,48 @@ export default Ember.Service.extend({
     // TODO
   },
 
-  fetchNodeSettings: function() {
-    console.log('fetchNodeSettings()');
-    var that = this;
-    var baseUrl = this.get('settings.nodeServer');
+  // fetchNodeSettings: function() {
+  //   console.log('fetchNodeSettings()');
+  //   var that = this;
+  //   var baseUrl = this.get('settings.nodeServer');
 
-    $.getJSON(baseUrl+'settings').then(function(data) {
-      console.log('fetchNodeSettings() success', data);
+  //   $.getJSON(baseUrl+'settings').then(function(data) {
+  //     console.log('fetchNodeSettings() success', data);
 
-      //TODO
+  //     //TODO
 
-      that.set('remoteSettings.nagiosServerHost', data.nagiosServerHost);
-      that.set('remoteSettings.auth', data.auth);
-      that.set('remoteSettings.username', data.username);
+  //     that.set('remoteSettings.nagiosServerHost', data.nagiosServerHost);
+  //     that.set('remoteSettings.auth', data.auth);
+  //     that.set('remoteSettings.username', data.username);
 
-    }, function(err) {
-      console.log('fetchNodeSettings() error fetching node settings', err);
-    });
+  //   }, function(err) {
+  //     console.log('fetchNodeSettings() error fetching node settings', err);
+  //   });
 
-  },
+  // },
 
-  saveNodeSettings: function() {
-    console.log('saveNodeSettings()');
+  // saveNodeSettings: function() {
+  //   console.log('saveNodeSettings()');
 
-    var baseUrl = this.get('settings.nodeServer');
+  //   var baseUrl = this.get('settings.nodeServer');
 
-    var remoteSettings = this.get('remoteSettings');
+  //   var remoteSettings = this.get('remoteSettings');
 
-    // add password to the payload if auth is enabled
-    remoteSettings.password = 'bleh';
+  //   // add password to the payload if auth is enabled
+  //   remoteSettings.password = 'bleh';
 
-    // var dataToBeSent = {
-    //   one: 'oneeee*******************************++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++',
-    //   two: 'two'
-    // }
+  //   // var dataToBeSent = {
+  //   //   one: 'oneeee*******************************++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++',
+  //   //   two: 'two'
+  //   // }
 
-    $.post(baseUrl+'settings', remoteSettings, function(data, textStatus) {
-      //data contains the JSON object
-      //textStatus contains the status: success, error, etc
-      console.log('saveNodeSettings() success', data, textStatus);
-    }, 'json');
+  //   $.post(baseUrl+'settings', remoteSettings, function(data, textStatus) {
+  //     //data contains the JSON object
+  //     //textStatus contains the status: success, error, etc
+  //     console.log('saveNodeSettings() success', data, textStatus);
+  //   }, 'json');
 
-  },
+  // },
 
   /**************************************
    * Timers
@@ -160,6 +165,32 @@ export default Ember.Service.extend({
     this.fetchUpdateFromNagios4();
   },
 
+  getJSON: function(url) {
+    var username = this.get('remoteSettings.username');
+    var password = this.get('remoteSettings.password');
+    return new Promise(function(resolve, reject) {
+      $.ajax({
+        url: url,
+        method: 'GET',
+        dataType: 'json',
+        username: username,
+        password: password,
+        headers: {
+          "Authorization": "Basic " + btoa(username + ":" + password)
+        },
+        //whatever you need
+        // beforeSend: function (xhr) {
+        //   //xhr.setRequestHeader('REMOTE_USER', username);
+        //   xhr.setRequestHeader('Authorization', 'Basic ' + btoa(username, password));
+        // },
+        success: function(data) {
+          console.log('got data', data);
+          resolve(data);
+        }
+      });
+    });
+  },
+
   /***************************************************************************
    * Functions (private)
    ***************************************************************************/
@@ -167,23 +198,15 @@ export default Ember.Service.extend({
   fetchUpdateFromNagios4: function() {
 
     var that = this;
+    var baseUrl = this.get('remoteSettings.nagiosServer');
+    var basePath = this.get('remoteSettings.nagiosServerCgiPath');
 
-    //console.log('fetchUpdateFromNagios4() ' + new Date());
-
-    // direct to Nagios after I fix CORS on it
-    //var baseUrl = 'http://10.69.1.52/nagios/cgi-bin/';
-
-    // Proxy through node server in node/ folder
-    //var baseUrl = 'http://localhost:3000/nagios/';
-
-    var baseUrl = this.get('settings.nodeServer');
-
-    $.getJSON(baseUrl + 'nagios/statusjson.cgi?query=hostlist&details=true').then(function(data) {
+    this.getJSON(baseUrl + basePath + '/statusjson.cgi?query=hostlist&details=true').then(function(data) {
       // perform diff and set the data
       that.diffFromNagios4('hostlist', data);
     });
 
-    $.getJSON(baseUrl + 'nagios/statusjson.cgi?query=servicelist&details=true').then(function(data) {
+    this.getJSON(baseUrl + basePath + '/statusjson.cgi?query=servicelist&details=true').then(function(data) {
       // perform diff and set the data
       that.diffFromNagios4('servicelist', data);
 
@@ -209,7 +232,7 @@ export default Ember.Service.extend({
     this.set('connectionStatus', 'Connecting...');
 
     // alertlist
-    $.getJSON(baseUrl+'nagios/archivejson.cgi?query=alertlist&starttime='+starttime+'&endtime=%2B0').then((data) => {
+    this.getJSON(baseUrl + basePath + '/archivejson.cgi?query=alertlist&starttime='+starttime+'&endtime=%2B0').then((data) => {
 
       this.set('connectionStatus', 'Connected.');
 
