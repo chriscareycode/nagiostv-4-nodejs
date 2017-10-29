@@ -12,9 +12,11 @@
 
 <div style="margin-top: 5px;font-size: 0.8em;">
 
-  NagiosTV Current Version: <strong>{{nagios.currentVersion}}</strong>
+  NagiosTV v<strong>{{nagios.currentVersion}}</strong>
 
-  Latest Version: <strong>{{nagios.latestVersion}}</strong><br />
+  {{!-- Latest: v<strong>{{nagios.latestVersion}}</strong> --}}
+
+<br />
 
 {{#if nagios.newVersionAvailable}}
 <div style="color: lime">New Version Available</div>
@@ -31,13 +33,16 @@
 {{/if}}
 
   Refresh Interval: <strong>{{nagios.timerIntervalSeconds}}s</strong>
-  -
+  
+ {{!--  -
   Drift:
 {{#if (if-cond dateDrift '>' 20000)}}
-  <span class="color-red">{{dateDrift}} DISCONNECTED</span>
+  <span class="color-red">DISCONNECTED</span>
 {{else}}
-  <span class="color-green">{{dateDrift}}</span>
-{{/if}}<br />
+  <span class="color-green">{{dateDrift}}ms</span>
+{{/if}} --}}
+
+<br />
 
   Last update: <strong>{{nagios.dateLastUpdate}}</strong><br />
 

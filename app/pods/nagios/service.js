@@ -95,7 +95,7 @@ export default Ember.Service.extend({
 
   fetchLocalSettings: function() {
     console.log('fetchLocalSettings()');
-    var cat = localStorage.getItem('settings');
+    var cat = localStorage.getItem('nagiostv-settings');
     console.log('cat', cat);
     const settings = JSON.parse(cat);
     console.log('settings', settings);
@@ -106,11 +106,11 @@ export default Ember.Service.extend({
 
   saveLocalSettings: function() {
     console.log('saveLocalSettings()');
-    localStorage.setItem('settings', JSON.stringify(this.settings));
+    localStorage.setItem('nagiostv-settings', JSON.stringify(this.settings));
   },
 
   clearLocalSettings: function() {
-    localStorage.removeItem('settings');
+    localStorage.removeItem('nagiostv-settings');
   },
 
   /**************************************
@@ -187,7 +187,7 @@ export default Ember.Service.extend({
 
     this.getJSON(baseUrl + basePath + '/statusjson.cgi?query=hostlist&details=true').then((data) => {
 
-      this.set('connectionStatus', 'Got data');
+      this.set('connectionStatus', 'Connected');
 
       // perform diff and set the data
       this.set('connectionError', false);
