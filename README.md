@@ -21,8 +21,10 @@ Screenshot of NagiosTV 4
 
 ![Display](https://chriscarey.com/software/nagiostv-4/images/nagiostv-screen.png)
 
-Screenshot of 5 Nagios servers on one TV (5-in-1)
+Screenshot of 5 Nagios servers on one TV
 ------------
+
+This can be accomplished with a simple iframe tag for each region
 
 ![Display](http://chriscarey.com/projects/ajax-monitor-for-nagios/nagios-5-in-1.png)
 
