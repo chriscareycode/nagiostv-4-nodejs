@@ -5,7 +5,7 @@ module.exports = function(environment) {
     modulePrefix: 'nagios-tv4',
     podModulePrefix: 'nagios-tv4/pods',
     environment: environment,
-    baseURL: '/',
+    baseURL: null,
     locationType: 'auto',
     EmberENV: {
       FEATURES: {
@@ -41,7 +41,7 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-
+    ENV.locationType = 'hash'
   }
 
   return ENV;
