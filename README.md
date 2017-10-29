@@ -90,16 +90,25 @@ Upgrading if you are running a pre-built release
 - tar xvfz nagiostv-x.x.x.tar.gz
 - Copy the contents of the dist/ folder to your web server inside the old NagiosTV folder
 
-Upgrading if you are running development
+Upgrading and running a development build
 - $ cd nagiostv-4
-- $ git pull
+- $ git pull --rebase
+- $ ember serve
+- access your web server on the hostname and port ember.js shows you
+
+Upgrading and creating a build if you are running development
+- $ cd nagiostv-4
+- $ git pull --rebase
 - $ ember build
 - then copy the contents of the dist/ directory to your web server
 
 Development Requirements
 ------------
 
+Git
 Node.js
+Ember.js
+Bower
 
 Development
 ------------
@@ -109,7 +118,8 @@ Development
 - $ cd nagiostv-4
 - $ npm install
 - $ bower install
-- $ npm start
+- $ ember serve
+- access your web server on the hostname and port ember.js shows you
 
 TODO
 ------------
