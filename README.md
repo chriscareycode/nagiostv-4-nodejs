@@ -95,10 +95,18 @@ Then restart or reload apache and make sure it is happy and serving the Nagios w
 
 Upgrading
 ------------
-Upgrading if you are running a pre-built release
+Upgrading if you are running a pre-built release on your own web server
 - Download the new release nagiostv-x.x.x.tar.gz
 - tar xvfz nagiostv-x.x.x.tar.gz
 - Copy the contents of the dist/ folder to your web server inside the old NagiosTV folder
+
+Upgrading if you are running a pre-built release with the Node.js web server
+- Download the new release nagiostv-x.x.x.tar.gz
+- tar xvfz nagiostv-x.x.x.tar.gz
+- Copy the dist/ and node/ folders over the old NagiosTV files
+- Restart the Node.js server
+- $ cd node
+- $ ./start.sh
 
 Upgrading and running a development build
 - $ cd nagiostv-4
