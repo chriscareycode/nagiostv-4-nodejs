@@ -2,9 +2,10 @@
 
 This is a version of NagiosTV for Nagios4 servers.
 
-Nagios4 comes with new JSON CGI's
+Nagios Core 4.0.7 and newer comes with new JSON CGI's
 https://labs.nagios.com/2014/06/19/exploring-the-new-json-cgis-in-nagios-core-4-0-7-part-1/
-out of the box which makes this the fastest, lightest, simplest NagiosTV yet.
+out of the box which is a game changer for tapping into the Nagios data from a web application.
+No more need for ndoutils writing out to a database. No more installing 3rd party tools like status-json and MK livestatus to tap into Nagios. Those are great projects, but now we can make NagiosTV available to the most number of users, going with the built-in API. This release is the fastest, lightest, simplest to install NagiosTV yet.
 
 NagiosTV
 ------------
