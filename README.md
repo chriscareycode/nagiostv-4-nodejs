@@ -74,6 +74,10 @@ Change directory to node/
 Run ./start.sh
 A web server will start on port :3000 that will serve NagiosTV
 
+Proxying requests to your Nagios server using the Node.js server
+------------
+We can proxy, or bounce the connection from the NagiosTV web application through the Node.js server (included) in order to bypass CORS restrictions on the server, or to bypass other issues such as http protocol mismatch errors (when NagiosTV is served on a TLS https website, but your Nagios server is served on a http website). This capability does exist and is something that is working but I did not ship initially. Based on feedback I would like to enable this functionaly back in with configuration in-app.
+
 Upgrading
 ------------
 - $ cd nagiostv-4
