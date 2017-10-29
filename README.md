@@ -35,14 +35,19 @@ Changes needed for Nagios Apache server
 /etc/apache/sites-enabled/nagios.conf
 
 ```html
-Inside <Directory>
+# Inside <Directory> add these to add CORS headers
+
   Header set Access-Control-Allow-Headers "authorization" 
   Header always set Access-Control-Allow-Origin "*"
+
+# Then, wrap the Require valid-user with this <LimitExcept>
 
 <LimitExcept OPTIONS>
   Require valid-user
 </LimitExcept>
 ```
+
+Then restart or reload apache and make sure it is happy.
 
 Upgrading
 ------------
