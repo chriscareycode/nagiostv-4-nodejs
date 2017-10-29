@@ -4,21 +4,25 @@
 /*
  * Nagios Ember Service
  *
- * TODO: convert convertHostListFromNagios4 into a shared with convertServiceListFromNagios4
+ * TODO:
+ * save and load settings to localStorage or cookie
+ *
+ *
+ * convert convertHostListFromNagios4 into a shared with convertServiceListFromNagios4
  */
 import Ember from 'ember';
 
 export default Ember.Service.extend({
 
+  latestVersion: 0,
+  currentVersion: 1,
+
+  // Settings which will get saved
   settings: {
     title: 'NagiosTV 4',
-    iconUrl: '/images/tv-xxl.png'
-  },
-
-  remoteSettings: {
-    nagiosServer: 'http://bigwood',
+    iconUrl: '/images/tv-xxl.png',
+    nagiosServerHost: 'http://example.com',
     nagiosServerCgiPath: '/nagios/cgi-bin',
-    nagiosServerHost: '10.69.1.23',
     auth: true,
     username: 'nagiosadmin',
     password: ''
@@ -32,6 +36,8 @@ export default Ember.Service.extend({
   timerHandle: null,
 
   connectionStatus: '',
+  connectionError: false,
+  connectionErrorMessage: '',
 
   hostlist: {},
   servicelist: {},
@@ -87,14 +93,18 @@ export default Ember.Service.extend({
 
   fetchLocalSettings: function() {
     console.log('fetchLocalSettings()');
-    // TODO
-    console.log(document.location);
-    //this.set('settings.nodeServer', 'http://' + document.location.hostname + ':3000/');
+    var cat = localStorage.getItem('settings');
+    console.log('cat', cat);
+    const settings = JSON.parse(cat);
+    console.log('settings', settings);
+    if (settings) {
+      this.set('settings', settings);
+    }
   },
 
   saveLocalSettings: function() {
     console.log('saveLocalSettings()');
-    // TODO
+    localStorage.setItem('settings', JSON.stringify(this.settings));
   },
 
   /**************************************
@@ -122,8 +132,8 @@ export default Ember.Service.extend({
   },
 
   getJSON: function(url) {
-    var username = this.get('remoteSettings.username');
-    var password = this.get('remoteSettings.password');
+    var username = this.get('settings.username');
+    var password = this.get('settings.password');
     return new Promise(function(resolve, reject) {
       $.ajax({
         url: url,
@@ -135,8 +145,12 @@ export default Ember.Service.extend({
           "Authorization": "Basic " + btoa(username + ":" + password)
         },
         success: function(data) {
-          console.log('got data', data);
+          //console.log('getJSON got data', data);
           resolve(data);
+        },
+        error: function(fail) {
+          console.log('getJSON failure', fail);
+          reject(fail);
         }
       });
     });
@@ -149,12 +163,21 @@ export default Ember.Service.extend({
   fetchUpdateFromNagios4: function() {
 
     var that = this;
-    var baseUrl = this.get('remoteSettings.nagiosServer');
-    var basePath = this.get('remoteSettings.nagiosServerCgiPath');
+    var baseUrl = this.get('settings.nagiosServerHost');
+    var basePath = this.get('settings.nagiosServerCgiPath');
 
-    this.getJSON(baseUrl + basePath + '/statusjson.cgi?query=hostlist&details=true').then(function(data) {
+    this.getJSON(baseUrl + basePath + '/statusjson.cgi?query=hostlist&details=true').then((data) => {
+
+      this.set('connectionStatus', 'Got data');
+
       // perform diff and set the data
-      that.diffFromNagios4('hostlist', data);
+      this.set('connectionError', false);
+      this.diffFromNagios4('hostlist', data);
+    }, (err) => {
+      console.log('err', err);
+      this.set('connectionStatus', 'Problem');
+      this.set('connectionError', true);
+      this.set('connectionErrorMessage', 'Error ' + err.status + ' ' + err.statusText);
     });
 
     this.getJSON(baseUrl + basePath + '/statusjson.cgi?query=servicelist&details=true').then(function(data) {
@@ -173,7 +196,7 @@ export default Ember.Service.extend({
     // alertlist
     this.getJSON(baseUrl + basePath + '/archivejson.cgi?query=alertlist&starttime='+starttime+'&endtime=%2B0').then((data) => {
 
-      this.set('connectionStatus', 'Connected.');
+
 
       // sort the list newest first
       data.data.alertlist = data.data.alertlist.sort(function(o1, o2) {

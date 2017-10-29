@@ -18,6 +18,12 @@ export default Ember.Component.extend({
   animateInterval: 4 * 1000,
 
   didInsertElement: function() {
+    Ember.run.next(() => {
+      this.afterDidInsertElement();
+    });
+  },
+
+  afterDidInsertElement: function() {
     const animateInterval = this.get('animateInterval');
     const timerHandle = setInterval(() => {
       this.set('timerFired', new Date().getTime());
@@ -40,8 +46,7 @@ export default Ember.Component.extend({
 
   flynnClass: Ember.computed('howManyDown', 'timerFired', function() {
     const howManyDown = this.get('howManyDown');
-    console.log('howManyDown: ' + howManyDown);
-
+    //console.log('howManyDown: ' + howManyDown);
     let classes;
     let flynnClass;
     if (howManyDown === 0) {

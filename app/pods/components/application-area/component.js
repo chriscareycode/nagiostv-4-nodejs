@@ -9,17 +9,16 @@ export default Ember.Component.extend({
   dateDrift: 0,
 
   didInsertElement: function() {
+    Ember.run.next(() => {
+      this.afterDidInsertElement();
+    });
+  },
+
+  afterDidInsertElement: function() {
     const that = this;
     const nagios = this.get('nagios');
 
-
     nagios.fetchLocalSettings();
-
-    //nagios.fetchNodeSettings();
-
-
-    //TODO - only if the settings are ready, fetchUpdate and startTimer
-    //nagios.fetchUpdate();
 
     const timerForDateDrift = setInterval(function() {
       that.timerFired();
@@ -29,12 +28,10 @@ export default Ember.Component.extend({
       nagios.startTimer();
       that.set('timerForDateDrift', timerForDateDrift);
     }, 1000);
-
   },
 
   willDestroyElement: function() {
     this.get('nagios').stopTimer();
-
     clearInterval(this.get('timerForDateDrift'));
   },
 

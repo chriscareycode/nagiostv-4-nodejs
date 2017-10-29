@@ -15,16 +15,16 @@
 
     <div class="margin-top-10">
       Nagios Server:
-      <div>{{input type='text' value=nagios.remoteSettings.nagiosServer}}</div>
+      <div>{{input type='text' value=nagios.settings.nagiosServerHost}}</div>
     </div>
 
     <div class="margin-top-10">
       Nagios Server CGI Path:
-      <div>{{input type='text' value=nagios.remoteSettings.nagiosServerCgiPath}}</div>
+      <div>{{input type='text' value=nagios.settings.nagiosServerCgiPath}}</div>
     </div>
 
     <div class="margin-top-10">
-      Nagios Server Authentication Enabled: {{nagios.remoteSettings.auth}}
+      Nagios Server Authentication Enabled: {{nagios.settings.auth}}
       <div>
         <select>
           <option value="true">Yes</option>
@@ -35,12 +35,12 @@
 
     <div class="margin-top-10">
       Nagios Server Username:
-      <div>{{input type='text' value=nagios.remoteSettings.username}}</div>
+      <div>{{input type='text' value=nagios.settings.username}}</div>
     </div>
 
     <div class="margin-top-10">
       Nagios Server Password:
-      <div>{{input type='password' value=nagios.remoteSettings.password}}</div>
+      <div>{{input type='password' value=nagios.settings.password}}</div>
     </div>
 
     <div class="margin-top-10">

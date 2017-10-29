@@ -8,7 +8,7 @@
   {{!-- if the first item then time since now --}}
   {{!-- otherwise time since previous entry --}}
   {{#if (if-cond index '===' 0)}}
-  <div style="margin: 12px 0px 12px 0px;color: #01A901;">
+  <div style="margin: 16px 0px 16px 0px;color: #01A901;">
 
     {{quiet-for-latest
       timestamp=item.timestamp
@@ -23,7 +23,7 @@
   {{else}}
 
     {{#if (if-quiet-for item.timestamp index 60 alertlist)}}
-  <div style="margin: 12px 0px 12px 0px;color: #01A901;">
+  <div style="margin: 16px 0px 16px 0px;color: #01A901;">
 
     {{quiet-for-latest
       timestamp=item.timestamp
