@@ -109,6 +109,10 @@ export default Ember.Service.extend({
     localStorage.setItem('settings', JSON.stringify(this.settings));
   },
 
+  clearLocalSettings: function() {
+    localStorage.removeItem('settings');
+  },
+
   /**************************************
    * Timers
    **************************************/

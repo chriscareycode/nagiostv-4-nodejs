@@ -45,6 +45,11 @@
 
     <div class="margin-top-10">
       <button {{action 'saveAction'}}>Save</button>
+      <button {{action 'eraseAction'}}>Erase</button>
+
+      {{#if saveMessage}}
+        <span style="color: lime">{{saveMessage}}</span>
+      {{/if}}
 
       {{#link-to 'application'}}Close{{/link-to}}
     </div>

@@ -10,17 +10,24 @@ export default Ember.Component.extend({
 
   isSettingUsernamePassword: false,
 
+  saveMessage: '',
+
   actions: {
     // openAction: function() {
     //   this.openMe();
     // },
 
     saveAction: function() {
-      // TODO: actually save somewhere
       const nagios = this.get('nagios');
       nagios.saveLocalSettings();
       //this.send('closeAction');
-    }
+      this.set('saveMessage', 'Saved.');
+    },
+
+    eraseAction: function() {
+      nagios.clearLocalSettings();
+      this.set('saveMessage', 'Cleared.');
+    },
 
     // closeAction: function() {
     //   let animation = 'slideOutUp';
@@ -46,6 +53,8 @@ export default Ember.Component.extend({
     //   // open the settings screen
     //   this.openMe();
     // }, 100);
+
+    this.set('saveMessage', '');
   }
 
   // openMe: function() {
