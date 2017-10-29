@@ -40,6 +40,10 @@ You can run the development build, or you can run with the pre-built release.
 The pre-built release will untar with a dist/ and a node/ folder
 The node server included is optional and can be used to serve the NagiosTV web interface and proxy requests.
 
+Security
+-------------
+This is a new project and has a lot of room for improvement before it is ready for use on the public Internet. The first issue would be if your Nagios server web interface is not using TLS (https), the password can be sent in the clear (in the http header). Installing TLS on your Apache server can solve this. The second issue would be the Node.js proxy which allows the web page to communicate to other remote endpoints. An open proxy is bad news on the Internet. Keep this project inside on your private network. If you want to access it remotely, then do so with VPN.
+
 Serving NagiosTV Option #1 - NagiosTV with the Node.js web server
 -------------
 Running the Node.js web server is optional and offers these features:
@@ -54,9 +58,9 @@ To start it:
 - A web server will start on port :3000 that will serve NagiosTV by serving the ../dist folder
 - The Node.js server will proxy requests to the Nagios server, bypassing some restrictions
 
-Proxying requests to your Nagios server using the Node.js server
+Proxying requests to your Nagios server using the Node.js server (coming soon)
 ------------
-We can proxy, or bounce the connection from the NagiosTV web application through the Node.js server (included) in order to bypass CORS restrictions on the server, or to bypass other issues such as http protocol mismatch errors (when NagiosTV is served on a TLS https website, but your Nagios server is served on a http website). This capability does exist and is something that is working but I did not ship initially. I would like to enable this functionaly back in with configuration in-app.
+We can proxy, or bounce the connection from the NagiosTV web application through the Node.js server (included) in order to bypass CORS restrictions on the browser, or to bypass other issues such as http protocol mismatch errors (when NagiosTV is served on a TLS https website, but your Nagios server is served on a http website). This capability does exist and is something that is working but I did not ship initially. I would like to enable this functionaly back in with configuration in-app.
 
 Serving NagiosTV Option #2 - Using pre-built NagiosTV release on your own web server
 -------------
@@ -90,8 +94,6 @@ At this time, the built-in Nagios CGIs do not support direct access from JavaScr
 ```
 
 Then restart or reload apache and make sure it is happy and serving the Nagios web interface.
-
-
 
 Upgrading
 ------------
