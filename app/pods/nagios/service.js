@@ -15,7 +15,9 @@ import Ember from 'ember';
 export default Ember.Service.extend({
 
   latestVersion: 0,
+  latestVersionString: '',
   currentVersion: 1,
+  newVersionAvailable: false,
 
   // Settings which will get saved
   settings: {
@@ -120,6 +122,8 @@ export default Ember.Service.extend({
     }, timerIntervalSeconds * 1000);
     this.set('isPolling', true);
     this.set('timerHandle', timerHandle);
+
+    this.versionCheck();
   },
 
   stopTimer: function() {
@@ -153,6 +157,17 @@ export default Ember.Service.extend({
           reject(fail);
         }
       });
+    });
+  },
+
+  versionCheck: function() {
+    const currentVersion = this.get('currentVersion');
+    $.getJSON('https://chriscarey.com/software/nagiostv-4/version/json/').then((d) => {
+      this.set('latestVersion', d.version);
+      this.set('latestVersionString', d.version_string);
+      if (d.version > currentVersion) {
+        this.set('newVersionAvailable', true);
+      }
     });
   },
 

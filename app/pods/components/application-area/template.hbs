@@ -16,7 +16,11 @@
 
   Latest Version: <strong>{{nagios.latestVersion}}</strong><br />
 
-  Nagios Server: <strong>{{nagios.settings.nagiosServer}}</strong><br />
+{{#if nagios.newVersionAvailable}}
+<div style="color: lime">New Version Available</div>
+{{/if}}
+
+  Nagios Server: <strong>{{nagios.settings.nagiosServerHost}}</strong><br />
 
   Connection Status: <strong>{{nagios.connectionStatus}}</strong><br />
 
