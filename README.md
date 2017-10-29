@@ -73,10 +73,11 @@ Running the Node.js web server is optional and offers these features:
 - Serves the NagiosTV web application on port :3000
 - Optionally will proxy requests to your Nagios server (coming soon)
 
+To start it:
 - Open a new terminal.
 - Change directory to node/
 - Run ./start.sh
-- A web server will start on port :3000 that will serve NagiosTV
+- A web server will start on port :3000 that will serve NagiosTV by serving the ../dist folder
 
 Proxying requests to your Nagios server using the Node.js server
 ------------
