@@ -16,6 +16,11 @@ New items slide in and out of place with animations.
 - Client Side: EmberJS 2.x
 - Server Side: Node.js
 
+Screenshot of NagiosTV 4
+------------
+
+![Display](https://chriscarey.com/software/nagiostv-4/images/nagiostv-screen.png)
+
 Screenshot of 5 Nagios servers on one TV (5-in-1)
 ------------
 
@@ -54,7 +59,12 @@ Upgrading
 - $ cd nagiostv-4
 - $ git pull
 - $ ember build
-- # copy the contents of the dist/ directory to your web server
+- then copy the contents of the dist/ directory to your web server
+
+Development Requirements
+------------
+
+Node.js
 
 Development
 ------------
@@ -65,11 +75,6 @@ Development
 - $ npm install
 - $ bower install
 - $ npm start
-
-Development Requirements
-------------
-
-Node.js
 
 TODO
 ------------
