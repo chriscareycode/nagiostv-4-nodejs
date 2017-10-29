@@ -12,7 +12,7 @@
 
 <div style="margin-top: 5px;font-size: 0.8em;">
 
-  NagiosTV v<strong>{{nagios.currentVersion}}</strong>
+  NagiosTV v<strong>{{nagios.currentVersionString}}</strong>
 
   {{!-- Latest: v<strong>{{nagios.latestVersion}}</strong> --}}
 
@@ -33,7 +33,7 @@
 {{/if}}
 
   Refresh Interval: <strong>{{nagios.timerIntervalSeconds}}s</strong>
-  
+
  {{!--  -
   Drift:
 {{#if (if-cond dateDrift '>' 20000)}}

@@ -14,9 +14,10 @@ import Ember from 'ember';
 
 export default Ember.Service.extend({
 
+  currentVersion: 1,
+  currentVersionString: '1.0.0',
   latestVersion: 0,
   latestVersionString: '',
-  currentVersion: 1,
   newVersionAvailable: false,
 
   // Settings which will get saved
