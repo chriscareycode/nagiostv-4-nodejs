@@ -34,6 +34,7 @@ Changes needed for Nagios Apache server
 
 /etc/apache/sites-enabled/nagios.conf
 
+```html
 Inside <Directory>
   Header set Access-Control-Allow-Headers "authorization" 
   Header always set Access-Control-Allow-Origin "*"
@@ -41,6 +42,7 @@ Inside <Directory>
 <LimitExcept OPTIONS>
   Require valid-user
 </LimitExcept>
+```
 
 Upgrading
 ------------
