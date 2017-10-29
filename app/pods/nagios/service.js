@@ -14,8 +14,8 @@ import Ember from 'ember';
 
 export default Ember.Service.extend({
 
-  currentVersion: 1,
-  currentVersionString: '1.0.0',
+  currentVersion: 2,
+  currentVersionString: '1.1.0',
   latestVersion: 0,
   latestVersionString: '',
   newVersionAvailable: false,
