@@ -25,6 +25,7 @@ export default Ember.Component.extend({
     },
 
     eraseAction: function() {
+      const nagios = this.get('nagios');
       nagios.clearLocalSettings();
       this.set('saveMessage', 'Cleared.');
     },
