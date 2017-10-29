@@ -1,6 +1,6 @@
 # NagiosTV 4
 
-This is a version of NagiosTV for Nagios4 servers.
+This is a version of NagiosTV for Nagios 4.x servers.
 
 Nagios Core 4.0.7 and newer comes with new JSON CGI's
 https://labs.nagios.com/2014/06/19/exploring-the-new-json-cgis-in-nagios-core-4-0-7-part-1/
