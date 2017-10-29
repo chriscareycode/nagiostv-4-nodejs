@@ -28,13 +28,14 @@ This can be accomplished with a simple iframe tag for each region
 
 ![Display](http://chriscarey.com/projects/ajax-monitor-for-nagios/nagios-5-in-1.png)
 
-
-I need to get a build system in place so users can just download the latest build.
-
-
 Running NagiosTV 4
 -------------
 We are now able to connect the web application direct to Nagios CGIs with a couple changes on the Nagios Apache server.
+
+There are a few options to run NagiosTV
+You can run the development build, or you can run with the pre-built release.
+The pre-built release will untar with a dist/ and a node/ folder
+The node server included is optional and can be used to serve the NagiosTV web interface.
 
 Changes needed for Nagios Apache server
 -------------
@@ -54,7 +55,23 @@ Changes needed for Nagios Apache server
 </LimitExcept>
 ```
 
-Then restart or reload apache and make sure it is happy.
+Then restart or reload apache and make sure it is happy and serving the Nagios web interface.
+
+Serving the pre-built dist/ folder on your own web server
+-------------
+Download the latest nagios release from https://github.com/chriscareycode/nagiostv-4/releases
+Copy the contents of the dist/ folder to your web server
+Access the web server to run NagiosTV
+Configure the Settings within NagiosTV
+NagiosTV will connect directly to your Nagios server
+After setting the server, username, and password, if you are still having trouble connecting, check the web browser developer console for errors.
+
+Running the Node.js web server
+-------------
+Open a new terminal.
+Change directory to node/
+Run ./start.sh
+A web server will start on port :3000 that will serve NagiosTV
 
 Upgrading
 ------------
