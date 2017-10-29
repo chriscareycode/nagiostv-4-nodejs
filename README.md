@@ -104,11 +104,10 @@ Upgrading and creating a build if you are running development
 
 Development Requirements
 ------------
-
-Git
-Node.js
-Ember.js
-Bower
+- Git
+- Node.js
+- Ember.js
+- Bower
 
 Development
 ------------
