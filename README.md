@@ -25,7 +25,7 @@ Screenshot of NagiosTV 4
 Looks good on mobile
 ------------
 
-![Display](https://chriscarey.com/software/nagiostv-4/images/nagiostv-iphone.png)
+<img src="https://chriscarey.com/software/nagiostv-4/images/nagiostv-iphone.png" width="300" />
 
 Screenshot of 5 Nagios servers on one TV
 ------------
