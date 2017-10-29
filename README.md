@@ -151,7 +151,8 @@ Features to work on next
 
 Credits
 ------------
-NagiosTV by Chris Carey
-http://chriscarey.com
+NagiosTV by Chris Carey http://chriscarey.com
+Your name here if you want to contribute
+
 
 
