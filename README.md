@@ -38,7 +38,34 @@ We are now able to connect the web application direct to Nagios CGIs with a coup
 There are a few options to run NagiosTV
 You can run the development build, or you can run with the pre-built release.
 The pre-built release will untar with a dist/ and a node/ folder
-The node server included is optional and can be used to serve the NagiosTV web interface.
+The node server included is optional and can be used to serve the NagiosTV web interface and proxy requests.
+
+Serving NagiosTV Option #1 - NagiosTV with the Node.js web server
+-------------
+Running the Node.js web server is optional and offers these features:
+- Serves the NagiosTV web application on port :3000
+- Can proxy requests to and from your Nagios server
+- Nagios username and password can be stored and saved on the server so it is not sent from the browser
+
+To start it:
+- Open a new terminal.
+- Change directory to node/
+- Run ./start.sh
+- A web server will start on port :3000 that will serve NagiosTV by serving the ../dist folder
+- The Node.js server will proxy requests to the Nagios server, bypassing some restrictions
+
+Proxying requests to your Nagios server using the Node.js server
+------------
+We can proxy, or bounce the connection from the NagiosTV web application through the Node.js server (included) in order to bypass CORS restrictions on the server, or to bypass other issues such as http protocol mismatch errors (when NagiosTV is served on a TLS https website, but your Nagios server is served on a http website). This capability does exist and is something that is working but I did not ship initially. I would like to enable this functionaly back in with configuration in-app.
+
+Serving NagiosTV Option #2 - Using pre-built NagiosTV release on your own web server
+-------------
+Download the latest nagios release from https://github.com/chriscareycode/nagiostv-4/releases
+Copy the contents of the dist/ folder to your web server
+Access the web server to run NagiosTV
+Configure the Settings within NagiosTV
+NagiosTV will connect directly to your Nagios server
+After setting the server, username, and password, if you are still having trouble connecting, check the web browser developer console for errors.
 
 Changes needed on the Nagios Apache server to enable CORS
 -------------
@@ -64,30 +91,7 @@ At this time, the built-in Nagios CGIs do not support direct access from JavaScr
 
 Then restart or reload apache and make sure it is happy and serving the Nagios web interface.
 
-Serving the pre-built dist/ folder on your own web server
--------------
-Download the latest nagios release from https://github.com/chriscareycode/nagiostv-4/releases
-Copy the contents of the dist/ folder to your web server
-Access the web server to run NagiosTV
-Configure the Settings within NagiosTV
-NagiosTV will connect directly to your Nagios server
-After setting the server, username, and password, if you are still having trouble connecting, check the web browser developer console for errors.
 
-Running the Node.js web server
--------------
-Running the Node.js web server is optional and offers these features:
-- Serves the NagiosTV web application on port :3000
-- Optionally will proxy requests to your Nagios server (coming soon)
-
-To start it:
-- Open a new terminal.
-- Change directory to node/
-- Run ./start.sh
-- A web server will start on port :3000 that will serve NagiosTV by serving the ../dist folder
-
-Proxying requests to your Nagios server using the Node.js server
-------------
-We can proxy, or bounce the connection from the NagiosTV web application through the Node.js server (included) in order to bypass CORS restrictions on the server, or to bypass other issues such as http protocol mismatch errors (when NagiosTV is served on a TLS https website, but your Nagios server is served on a http website). This capability does exist and is something that is working but I did not ship initially. Based on feedback I would like to enable this functionaly back in with configuration in-app.
 
 Upgrading
 ------------
