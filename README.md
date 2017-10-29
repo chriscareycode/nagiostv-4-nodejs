@@ -85,6 +85,12 @@ We can proxy, or bounce the connection from the NagiosTV web application through
 
 Upgrading
 ------------
+Upgrading if you are running a pre-built release
+- Download the new release nagiostv-x.x.x.tar.gz
+- tar xvfz nagiostv-x.x.x.tar.gz
+- Copy the contents of the dist/ folder to your web server inside the old NagiosTV folder
+
+Upgrading if you are running development
 - $ cd nagiostv-4
 - $ git pull
 - $ ember build
@@ -109,9 +115,8 @@ TODO
 ------------
 Features to work on next
 - Fix support for Nagios elements with a period in the name
+- Add back in Node.js proxy support
 - Edit Node server from the browser
-- Edit Nagios server from the browser?
-https://docs.nodejitsu.com/articles/file-system/how-to-store-local-config-data/
 
 Credits
 ------------
