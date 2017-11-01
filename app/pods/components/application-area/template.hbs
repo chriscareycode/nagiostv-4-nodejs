@@ -22,7 +22,7 @@
 <div style="color: lime; border: 1px solid lime; border-radius: 4px;padding: 5px;margin: 5px 0;">New Version v{{nagios.latestVersionString}} Available</div>
 {{/if}}
 
-  Nagios Server: <strong>{{nagios.settings.nagiosServerHost}}</strong><br />
+  {{!-- Nagios Server: <strong>{{nagios.settings.nagiosServerHost}}</strong><br /> --}}
 
   Connection Status: <strong>{{nagios.connectionStatus}}</strong><br />
 
@@ -32,7 +32,7 @@
 </div>
 {{/if}}
 
-  Refresh Interval: <strong>{{nagios.timerIntervalSeconds}}s</strong>
+  {{!-- Refresh Interval: <strong>{{nagios.timerIntervalSeconds}}s</strong> --}}
 
  {{!--  -
   Drift:
@@ -41,8 +41,6 @@
 {{else}}
   <span class="color-green">{{dateDrift}}ms</span>
 {{/if}} --}}
-
-<br />
 
   Last update: <strong>{{nagios.dateLastUpdate}}</strong><br />
 

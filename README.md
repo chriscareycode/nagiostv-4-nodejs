@@ -1,4 +1,4 @@
-# NagiosTV 4
+# NagiosTV for Nagios 4
 
 This is a version of NagiosTV for Nagios 4.x servers.
 
@@ -14,7 +14,7 @@ Watch one or more Nagios servers on a wall mounted TV (or your desktop)
 
 New items slide in and out of place with animations.
 
-Screenshot of NagiosTV 4
+Screenshot on desktop
 ------------
 
 ![Display](https://chriscarey.com/software/nagiostv-4/images/nagiostv-screen.png)
@@ -31,7 +31,7 @@ This can be accomplished with a simple iframe tag for each region
 
 ![Display](http://chriscarey.com/projects/ajax-monitor-for-nagios/nagios-5-in-1.png)
 
-Running NagiosTV 4
+Running NagiosTV
 -------------
 We are now able to connect the web application direct to Nagios CGIs with a couple changes on the Nagios Apache server.
 
