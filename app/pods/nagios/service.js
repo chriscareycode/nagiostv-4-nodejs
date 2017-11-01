@@ -22,7 +22,7 @@ export default Ember.Service.extend({
 
   // Settings which will get saved
   settings: {
-    title: 'NagiosTV 4',
+    title: 'NagiosTV for Nagios 4',
     iconUrl: '/images/tv-xxl.png',
     nagiosServerHost: 'http://example.com',
     nagiosServerCgiPath: '/nagios/cgi-bin',
