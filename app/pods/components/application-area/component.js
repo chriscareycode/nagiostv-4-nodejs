@@ -35,6 +35,16 @@ export default Ember.Component.extend({
     clearInterval(this.get('timerForDateDrift'));
   },
 
+  connectionStatusClass: Ember.computed('nagios.connectionStatus', function() {
+    switch(this.get('nagios.connectionStatus')) {
+      case 'Connected':
+      case 'Connecting...':
+        return 'color-green';
+      default:
+        return '';
+    }
+  }),
+
   startTheTimer: function() {
 
   },

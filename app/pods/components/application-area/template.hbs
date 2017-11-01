@@ -24,7 +24,7 @@
 
   {{!-- Nagios Server: <strong>{{nagios.settings.nagiosServerHost}}</strong><br /> --}}
 
-  Connection Status: <strong>{{nagios.connectionStatus}}</strong><br />
+  Connection Status: <strong class={{connectionStatusClass}}>{{nagios.connectionStatus}}</strong><br />
 
 {{#if nagios.connectionError}}
 <div style="color: pink">ERROR
