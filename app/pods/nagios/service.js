@@ -14,8 +14,8 @@ import Ember from 'ember';
 
 export default Ember.Service.extend({
 
-  currentVersion: 3,
-  currentVersionString: '1.2.0',
+  currentVersion: 4,
+  currentVersionString: '1.2.1',
   latestVersion: 0,
   latestVersionString: '',
   newVersionAvailable: false,
@@ -95,11 +95,8 @@ export default Ember.Service.extend({
    **************************************/
 
   fetchLocalSettings: function() {
-    console.log('fetchLocalSettings()');
     var cat = localStorage.getItem('nagiostv-settings');
-    console.log('cat', cat);
     const settings = JSON.parse(cat);
-    console.log('settings', settings);
     if (settings) {
       this.set('settings', settings);
     }
