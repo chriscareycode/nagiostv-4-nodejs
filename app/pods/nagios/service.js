@@ -24,8 +24,10 @@ export default Ember.Service.extend({
   settings: {
     title: 'NagiosTV for Nagios 4',
     iconUrl: '/images/tv-xxl.png',
+    connectionStyle: 'direct', // direct, proxy
     nagiosServerHost: 'http://example.com',
     nagiosServerCgiPath: '/nagios/cgi-bin',
+    nodeServerHost: 'http://localhost:3000',
     auth: true,
     username: 'nagiosadmin',
     password: ''
@@ -98,6 +100,13 @@ export default Ember.Service.extend({
     var cat = localStorage.getItem('nagiostv-settings');
     const settings = JSON.parse(cat);
     if (settings) {
+      // When we are adding setting we need to give defaults for the new settings
+      if (typeof(settings.connectionStyle) === 'undefined') {
+        settings.connectionStyle = 'direct';
+      }
+      if (typeof(settings.nodeServerHost) === 'undefined') {
+        settings.nodeServerHost = 'http://localhost:3000';
+      }
       this.set('settings', settings);
     }
   },
@@ -108,7 +117,16 @@ export default Ember.Service.extend({
   },
 
   clearLocalSettings: function() {
+    console.log('clearLocalSettings()');
     localStorage.removeItem('nagiostv-settings');
+  },
+
+  saveProxySettings: function() {
+    console.log('saveProxySettings()');
+  },
+
+  clearProxySettings: function() {
+    console.log('clearProxySettings()');
   },
 
   /**************************************

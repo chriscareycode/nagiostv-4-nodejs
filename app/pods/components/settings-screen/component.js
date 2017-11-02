@@ -30,6 +30,19 @@ export default Ember.Component.extend({
       this.set('saveMessage', 'Cleared.');
     },
 
+    saveProxyAction: function() {
+      const nagios = this.get('nagios');
+      nagios.saveProxySettings();
+      //this.send('closeAction');
+      this.set('saveMessage', 'Saved.');
+    },
+
+    eraseProxyAction: function() {
+      const nagios = this.get('nagios');
+      nagios.clearProxySettings();
+      this.set('saveMessage', 'Cleared.');
+    },
+
     // closeAction: function() {
     //   let animation = 'slideOutUp';
 
@@ -56,7 +69,15 @@ export default Ember.Component.extend({
     // }, 100);
 
     this.set('saveMessage', '');
-  }
+  },
+
+  isProxy: Ember.computed('nagios.settings.connectionStyle', function() {
+    return this.get('nagios.settings.connectionStyle') === 'proxy';
+  }),
+
+  isAuth: Ember.computed('nagios.settings.auth', function() {
+    return this.get('nagios.settings.auth') === true;
+  })
 
   // openMe: function() {
   //   let animation = 'slideInDown';

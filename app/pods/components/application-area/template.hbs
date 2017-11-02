@@ -8,8 +8,6 @@
   <img src={{nagios.settings.iconUrl}} style="width: 30px;"> {{nagios.settings.title}}
 </h2>
 
-
-
 <div style="margin-top: 5px;font-size: 0.8em;">
 
   NagiosTV v<strong>{{nagios.currentVersionString}}</strong>
@@ -46,51 +44,19 @@
 
 </div>
 
-{{!--hosts --}}
 
-{{host-list
-  nagios=nagios
-}}
+
+
+{{!--hosts --}}
+{{host-list nagios=nagios}}
 
 {{!--services --}}
+{{service-list nagios=nagios}}
 
-{{!-- <div>Services Length: {{object-length nagios.servicelist}}</div> --}}
-{{!-- {{#if (if-cond nagios.servicelistDownCount '>' 0)}} --}}
 
-<div class="color-orange" style="margin:10px 0 10px 0;">
-  Service Problems: <strong>{{nagios.servicelistDownCount}}</strong>
-</div>
-{{!-- {{/if}} --}}
 
-{{!-- {{#if (if-cond nagios.servicelistDownCount '===' 0)}} --}}
-{{#unless atLeastOneServiceDownOrFlapping}}
-<div class="service-item color-green font-size-1-2 animate-open">
-  <div class="padding-4">
-    All <strong>{{nagios.servicelistCount}}</strong> services are UP
-  </div>
-</div>
-{{/unless}}
-
-{{#each-in nagios.servicelist as |host service|}}
-  {{!-- each host --}}
-  <div>
-  {{#each-in service as |servicename servicedetail|}}
-    {{!-- each service in each host --}}
-    {{#if (if-cond servicedetail.is_flapping '||' (if-cond servicedetail.status '!==' 2))}}
-
-      {{service-item
-        host=host
-        servicename=servicename
-        servicedetail=servicedetail
-      }}
-
-    {{/if}}
-  {{/each-in}}
-  </div>
-{{/each-in}}
 
 {{!--alert list --}}
-
 <div class="color-orange" style="margin-top: 10px;padding-bottom: 3px;">
   Alert History: <strong>{{nagios.alertlist.length}}</strong>
 </div>
