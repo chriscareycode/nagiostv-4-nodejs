@@ -12,10 +12,23 @@ export default Ember.Component.extend({
 
   howManyDown: 0,
 
+  flynnClicked: false,
+
   timerHandle: null,
   timerFired: 0,
 
   animateInterval: 4 * 1000,
+
+  actions: {
+    clickFlynnAction: function() {
+      this.set('flynnClicked', true);
+      this.set('timerFired', new Date().getTime());
+      Ember.run.later(() => {
+        this.set('flynnClicked', false);
+        this.set('timerFired', new Date().getTime());
+      }, 2500);
+    }
+  },
 
   didInsertElement: function() {
     Ember.run.next(() => {
@@ -40,16 +53,20 @@ export default Ember.Component.extend({
     }
   },
 
+  smileClasses: ['flynn20', 'flynn21', 'flynn22', 'flynn23'],
   happyClasses: ['flynn1', 'flynn6', 'flynn11'],
   angryClasses: ['flynn2', 'flynn3', 'flynn7', 'flynn8', 'flynn12', 'flynn13', 'flynn16', 'flynn17', 'flynn18', 'flynn19'],
   bloodyClasses: ['flynn4', 'flynn5', 'flynn9', 'flynn10', 'flynn14', 'flynn15', 'flynn24', 'flynn25'],
 
   flynnClass: Ember.computed('howManyDown', 'timerFired', function() {
     const howManyDown = this.get('howManyDown');
+    const flynnClicked = this.get('flynnClicked');
     //console.log('howManyDown: ' + howManyDown);
     let classes;
     let flynnClass;
-    if (howManyDown === 0) {
+    if (flynnClicked) {
+      classes = this.get('smileClasses');
+    } else if (howManyDown === 0) {
       classes = this.get('happyClasses');
     } else if (howManyDown < 4) {
       classes = this.get('angryClasses');

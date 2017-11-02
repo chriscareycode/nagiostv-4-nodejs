@@ -6,6 +6,8 @@
 
   transform: scale(1.7);
   transform-origin: 100% 0%;
+
+  cursor: pointer;
 }
 
 .flynn1 {background-position:0px 0px}
