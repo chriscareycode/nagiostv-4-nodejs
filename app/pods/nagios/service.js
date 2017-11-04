@@ -181,6 +181,14 @@ export default Ember.Service.extend({
   },
 
   versionCheck: function() {
+    this.versionCheckFetch();
+    // check once per day
+    setInterval(() => {
+      this.versionCheckFetch();
+    }, 86400 * 1000);
+  },
+
+  versionCheckFetch: function() {
     const currentVersion = this.get('currentVersion');
     $.getJSON('https://chriscarey.com/software/nagiostv-4/version/json/').then((d) => {
       this.set('latestVersion', d.version);
@@ -188,6 +196,8 @@ export default Ember.Service.extend({
       if (d.version > currentVersion) {
         this.set('newVersionAvailable', true);
       }
+    }, (err) => {
+      console.log('There was an error checking for the latest version.');
     });
   },
 
