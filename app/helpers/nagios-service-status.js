@@ -8,6 +8,8 @@ export default Ember.Helper.helper(function([status]) {
       return 'OK';
     case 4:
       return 'WARNING';
+    case 8:
+      return 'UNKNOWN';
     case 16:
       return 'CRITICAL';
   }

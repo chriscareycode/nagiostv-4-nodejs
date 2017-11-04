@@ -12,17 +12,16 @@
   </div>
 
   <div>
-    state type: {{nagios-state-type (get servicedetail 'state_type')}} -
+    state: {{nagios-state-type (get servicedetail 'state_type')}} -
     status: {{nagios-service-status (get servicedetail 'status')}}
-    ({{servicedetail.status}})
     {{#if servicedetail.is_flapping}} - <span class="color-orange">IS FLAPPING</span>{{/if}}
-    
+
     <br>
 
     <span class="font-size-0-8">
-    last check: {{format-date (get servicedetail 'last_check')}} -
-    last update: {{format-date (get servicedetail 'last_update')}} -
-    next check: {{format-date (get servicedetail 'next_check')}}
+    Last check: {{format-date (get servicedetail 'last_check')}} -
+    {{!-- last update: {{format-date (get servicedetail 'last_update')}} - --}}
+    Next check: {{format-date (get servicedetail 'next_check')}}
     </span>
   </div>
 </div>
