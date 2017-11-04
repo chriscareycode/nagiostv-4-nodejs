@@ -39,37 +39,45 @@ export default Ember.Component.extend({
 
   },
 
+  // the border
   wrapperClass: Ember.computed('servicedetail.status', function() {
     const status = this.get('servicedetail.status');
     let classString = '';
 
     switch(status) {
       case 2:
-        classString = 'border-green';
+        classString = 'border-green'; // ok
         break;
       case 4:
-        classString = 'border-yellow';
+        classString = 'border-yellow'; // warning
+        break;
+      case 8:
+        classString = 'border-gray'; // unknown
         break;
       case 16:
-        classString = 'border-red';
+        classString = 'border-red'; // critical
         break;
     }
     return classString;
   }),
 
+  // the text
   stateClass: Ember.computed('servicedetail.status', function() {
     const status = this.get('servicedetail.status');
     let classString = '';
 
     switch(status) {
       case 2:
-        classString = 'color-green';
+        classString = 'color-green'; // ok
         break;
       case 4:
-        classString = 'color-yellow';
+        classString = 'color-yellow'; // warning
+        break;
+      case 8:
+        classString = 'color-gray'; // unknown
         break;
       case 16:
-        classString = 'color-red';
+        classString = 'color-red'; // critical
         break;
     }
     return classString;

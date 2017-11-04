@@ -59,6 +59,10 @@
   border: 1px solid red;
 }
 
+.border-gray {
+  border: 1px solid gray;
+}
+
 /* color */
 
 .color-green {
@@ -75,5 +79,9 @@
 
 .color-red {
   color: #FD7272;
+}
+
+.color-gray {
+  color: gray;
 }
 
