@@ -14,6 +14,7 @@
 /bower_components
 
 node/settings.js
+node/settings-json.js
 node/.DS_Store
 node/node_modules
 
