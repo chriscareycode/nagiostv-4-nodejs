@@ -25,7 +25,7 @@ export default Ember.Service.extend({
     title: 'NagiosTV for Nagios 4',
     iconUrl: '/images/tv-xxl.png',
     connectionStyle: 'direct', // direct, proxy
-    nodeServerHost: 'http://localhost:3000',
+    nodeServerHost: '',
     nodeServerPath: '/nagios',
     nagiosServerHost: 'http://example.com',
     nagiosServerCgiPath: '/nagios/cgi-bin',
@@ -56,7 +56,7 @@ export default Ember.Service.extend({
    * Computed Properties
    ***************************************************************************/
 
-   servicelistCount: Ember.computed('servicelist', function() {
+  servicelistCount: Ember.computed('servicelist', function() {
     let count = 0;
     let servicelist = this.get('servicelist');
     for (let host in servicelist) {
@@ -131,9 +131,9 @@ export default Ember.Service.extend({
 
   fetchProxySettings: function() {
     this.fetchProxySettingsPromise().then((data) => {
-      //console.log('fetchProxySettings success');
-      //console.log(data);
-      //console.log('Overwriting local settings with server settings');
+      console.log('fetchProxySettings success');
+      console.log(data);
+      console.log('Overwriting local settings with server settings');
       this.set('settings', data);
     }, (err) => {
       console.log('fetchProxySettings error');

@@ -20,6 +20,8 @@ export default Ember.Component.extend({
 
     nagios.fetchLocalSettings();
 
+    nagios.fetchProxySettings();
+
     const timerForDateDrift = setInterval(function() {
       that.timerFired();
     }, 5000);
