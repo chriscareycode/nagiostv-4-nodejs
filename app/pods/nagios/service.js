@@ -97,17 +97,14 @@ export default Ember.Service.extend({
    **************************************/
 
   fetchLocalSettings: function() {
-    var cat = localStorage.getItem('nagiostv-settings');
-    const settings = JSON.parse(cat);
-    if (settings) {
-      // When we are adding setting we need to give defaults for the new settings
-      if (typeof(settings.connectionStyle) === 'undefined') {
-        settings.connectionStyle = 'direct';
-      }
-      if (typeof(settings.nodeServerHost) === 'undefined') {
-        settings.nodeServerHost = 'http://localhost:3000';
-      }
-      this.set('settings', settings);
+    const cat = localStorage.getItem('nagiostv-settings');
+    const loadedSettings = JSON.parse(cat);
+    if (loadedSettings) {
+      // overlay the loaded settings over top of the default settings
+      // this helps prevent issues when we add new settings
+      const defaultSettings = this.get('settings');
+      const mergedSettings = Object.assign(defaultSettings, loadedSettings);
+      this.set('settings', mergedSettings);
     }
   },
 
