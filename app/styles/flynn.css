@@ -3,10 +3,8 @@
   height: 64px;
   width: 48px;
   display: inline-block;
-
-  transform: scale(1.7);
+  transform: scale(1.5);
   transform-origin: 100% 0%;
-
   cursor: pointer;
 }
 
