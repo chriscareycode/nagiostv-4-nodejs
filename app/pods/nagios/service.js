@@ -106,22 +106,12 @@ export default Ember.Service.extend({
       const defaultSettings = this.get('settings');
       const mergedSettings = Object.assign({}, defaultSettings, loadedSettings);
       this.set('settings', mergedSettings);
-
-      // If connectionStyle is 'proxy', then let's try to load settings from the proxy location
-      if (mergedSettings.connectionStyle === 'proxy') {
-        this.fetchProxySettings();
-      }
     }
   },
 
   saveLocalSettings: function() {
     console.log('saveLocalSettings()');
     localStorage.setItem('nagiostv-settings', JSON.stringify(this.settings));
-
-    // If connectionStyle is 'proxy', then let's try to load settings from the proxy location
-      if (this.get('settings').connectionStyle === 'proxy') {
-        this.fetchProxySettings();
-      }
   },
 
   clearLocalSettings: function() {
