@@ -232,8 +232,13 @@ export default Ember.Service.extend({
   },
 
   getJSON: function(url) {
-    var username = this.get('settings.username');
-    var password = this.get('settings.password');
+    const username = this.get('settings.username');
+    const password = this.get('settings.password');
+    let headers = {};
+    if (username && password) {
+      headers['Authorization'] = "Basic " + btoa(username + ":" + password);
+    }
+
     return new Promise(function(resolve, reject) {
       $.ajax({
         url: url,
@@ -241,9 +246,7 @@ export default Ember.Service.extend({
         dataType: 'json',
         username: username,
         password: password,
-        headers: {
-          "Authorization": "Basic " + btoa(username + ":" + password)
-        },
+        headers: headers,
         success: function(data) {
           //console.log('getJSON got data', data);
           resolve(data);
