@@ -22,6 +22,7 @@
 
   {{!-- Nagios Server: <strong>{{nagios.settings.nagiosServerHost}}</strong><br /> --}}
 
+  Connection Type: {{nagios.settings.connectionStyle}}<br />
   Connection Status: <strong class={{connectionStatusClass}}>{{nagios.connectionStatus}}</strong><br />
 
 {{#if nagios.connectionError}}

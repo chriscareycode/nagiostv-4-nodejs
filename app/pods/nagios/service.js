@@ -25,9 +25,10 @@ export default Ember.Service.extend({
     title: 'NagiosTV for Nagios 4',
     iconUrl: '/images/tv-xxl.png',
     connectionStyle: 'direct', // direct, proxy
+    nodeServerHost: 'http://localhost:3000',
+    nodeServerPath: '/nagios',
     nagiosServerHost: 'http://example.com',
     nagiosServerCgiPath: '/nagios/cgi-bin',
-    nodeServerHost: 'http://localhost:3000',
     auth: true,
     username: 'nagiosadmin',
     password: ''
@@ -103,14 +104,24 @@ export default Ember.Service.extend({
       // overlay the loaded settings over top of the default settings
       // this helps prevent issues when we add new settings
       const defaultSettings = this.get('settings');
-      const mergedSettings = Object.assign(defaultSettings, loadedSettings);
+      const mergedSettings = Object.assign({}, defaultSettings, loadedSettings);
       this.set('settings', mergedSettings);
+
+      // If connectionStyle is 'proxy', then let's try to load settings from the proxy location
+      if (mergedSettings.connectionStyle === 'proxy') {
+        this.fetchProxySettings();
+      }
     }
   },
 
   saveLocalSettings: function() {
     console.log('saveLocalSettings()');
     localStorage.setItem('nagiostv-settings', JSON.stringify(this.settings));
+
+    // If connectionStyle is 'proxy', then let's try to load settings from the proxy location
+      if (this.get('settings').connectionStyle === 'proxy') {
+        this.fetchProxySettings();
+      }
   },
 
   clearLocalSettings: function() {
@@ -118,12 +129,80 @@ export default Ember.Service.extend({
     localStorage.removeItem('nagiostv-settings');
   },
 
+  fetchProxySettings: function() {
+    this.fetchProxySettingsPromise().then((data) => {
+      //console.log('fetchProxySettings success');
+      //console.log(data);
+      //console.log('Overwriting local settings with server settings');
+      this.set('settings', data);
+    }, (err) => {
+      console.log('fetchProxySettings error');
+    });
+  },
+
+  fetchProxySettingsPromise: function() {
+    var nodeServerHost = this.get('settings.nodeServerHost');
+    return new Promise((resolve, reject) => {
+      $.ajax({
+        url: nodeServerHost + '/settings',
+        method: 'GET',
+        dataType: 'json',
+        success: function(data) {
+          resolve(data);
+        },
+        error: function(fail) {
+          reject(fail);
+        }
+      });
+    });
+  },
+
   saveProxySettings: function() {
     console.log('saveProxySettings()');
+
+    // save a subset of the settings locally
+    const localSettings = {};
+    localSettings.connectionStyle = this.settings.connectionStyle;
+    localSettings.nodeServerHost = this.settings.nodeServerHost;
+    localSettings.nodeServerPath = this.settings.nodeServerPath;
+    localStorage.setItem('nagiostv-settings', JSON.stringify(localSettings));
+
+    // send the settings to the proxy
+    var settings = this.get('settings');
+    return new Promise((resolve, reject) => {
+      $.ajax({
+        url: settings.nodeServerHost + '/settings',
+        method: 'POST',
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(settings),
+        dataType: 'json',
+        success: function(data) {
+          resolve(data);
+        },
+        error: function(fail) {
+          reject(fail);
+        }
+      });
+    });
+
   },
 
   clearProxySettings: function() {
     console.log('clearProxySettings()');
+    var nodeServerHost = this.get('settings.nodeServerHost');
+    return new Promise((resolve, reject) => {
+      $.ajax({
+        url: nodeServerHost + '/settings-clear',
+        method: 'GET',
+        dataType: 'json',
+        success: function(data) {
+          resolve(data);
+        },
+        error: function(fail) {
+          reject(fail);
+        }
+      });
+    });
   },
 
   /**************************************
@@ -205,8 +284,18 @@ export default Ember.Service.extend({
   fetchUpdateFromNagios4: function() {
 
     var that = this;
-    var baseUrl = this.get('settings.nagiosServerHost');
-    var basePath = this.get('settings.nagiosServerCgiPath');
+    var settings = this.get('settings');
+
+    let baseUrl;
+    let basePath;
+    // switch for direct vs proxy connection
+    if (settings.connectionStyle === 'proxy') {
+      baseUrl = settings.nodeServerHost;
+      basePath = settings.nodeServerPath;
+    } else {
+      baseUrl = settings.nagiosServerHost;
+      basePath = settings.nagiosServerCgiPath;
+    }
 
     this.getJSON(baseUrl + basePath + '/statusjson.cgi?query=hostlist&details=true').then((data) => {
 
