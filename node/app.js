@@ -53,7 +53,11 @@ function loadSettings() {
 
 function sendSettings(req, res) {
   console.log('sendSettings()');
-  res.json(settingsJson);
+  // Send settings but without password
+  const settingsWithoutPassword = Object.assign({}, settingsJson, {
+    password: ''
+  })
+  res.json(settingsWithoutPassword);
 }
 
 function saveSettings(req, res) {
