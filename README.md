@@ -9,10 +9,13 @@ No more need for ndoutils writing out to a database. No more installing 3rd part
 
 NagiosTV
 ------------
-
 Watch one or more Nagios servers on a wall mounted TV (or your desktop)
 
 New items slide in and out of place with animations.
+
+Technology
+------------
+NagiosTV is a JavaScript single page application with a companion Node.js server (also JavaScript) which can optionally serve the web application and send (proxy) requests to your Nagios server.
 
 Screenshot on desktop
 ------------
