@@ -15,14 +15,16 @@ New items slide in and out of place with animations.
 
 Technology
 ------------
-NagiosTV is a JavaScript single page application with a companion Node.js server (also JavaScript) which can optionally serve the web application and send (proxy) requests to your Nagios server.
+NagiosTV is a JavaScript single page application. A companion Node.js server (also JavaScript) is also included which can optionally serve the web application and help send (proxy) requests to your Nagios server.
 
-Screenshot on desktop
+The frontend is using the Ember.js framework.
+
+Screenshot of NagiosTV on desktop
 ------------
 
 ![Display](https://chriscarey.com/software/nagiostv-4/images/nagiostv-screen.png)
 
-Screenshot on mobile
+Screenshot of NagiosTV on mobile
 ------------
 
 <img src="https://chriscarey.com/software/nagiostv-4/images/nagiostv-iphone.png" width="300" />
