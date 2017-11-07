@@ -68,8 +68,10 @@ Download the latest nagios release from https://github.com/chriscareycode/nagios
 Copy the contents of the dist/ folder to your web server
 Access the web server to run NagiosTV
 Configure the Settings within NagiosTV
+Save the settings (settings will be saved to your browser)
 NagiosTV will connect directly to your Nagios server
-After setting the server, username, and password, if you are still having trouble connecting, check the web browser developer console for errors.
+* After setting the server, username, and password, if you are still having trouble connecting, check the web browser developer console for errors.
+* Depending on your configuration, your browser may be sending authentication information to the Nagios server in the clear. To solve this, use the Node.js server method, or enable TLS on your Nagios Apache web interface.
 
 Changes needed on the Nagios Apache server to enable CORS
 -------------
@@ -98,20 +100,20 @@ If I can find out who to talk to at Nagios about fixing this, I would like to ge
 
 Upgrading
 ------------
-Upgrading if you are running a pre-built release on your own web server
+Upgrading if you are running a pre-built release of NagiosTV and using the built-in Node.js web server
 - Download the new release nagiostv-x.x.x.tar.gz
-- tar xvfz nagiostv-x.x.x.tar.gz
-- Copy the contents of the dist/ folder to your web server inside the old NagiosTV folder
-
-Upgrading if you are running a pre-built release with the Node.js web server
-- Download the new release nagiostv-x.x.x.tar.gz
-- tar xvfz nagiostv-x.x.x.tar.gz
+- Extract the files: tar xvfz nagiostv-x.x.x.tar.gz
 - Copy the dist/ and node/ folders over the old NagiosTV files
 - Restart the Node.js server
 - $ cd node
 - $ ./start.sh
+- Connect to the server in a web browser
 
-
+Upgrading if you are running a pre-built release on your own web server
+- Download the new release nagiostv-x.x.x.tar.gz
+- tar xvfz nagiostv-x.x.x.tar.gz
+- Copy the contents of the dist/ folder to your web server inside the old NagiosTV folder
+- Connect to the server in a web browser
 
 Development Requirements
 ------------
@@ -141,14 +143,12 @@ Upgrading and creating a development build
 - $ cd nagiostv-4
 - $ git pull --rebase
 - $ ember build
-- then copy the contents of the dist/ directory to your web server
+- the build is created in the dist/ folder
 
 TODO
 ------------
-Features to work on next
+Features to work on:
 - Fix support for Nagios elements with a period in the name
-- Add back in Node.js proxy support
-- Edit Node server from the browser
 
 Credits
 ------------
