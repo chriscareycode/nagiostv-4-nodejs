@@ -58,9 +58,9 @@ To start it:
 - A web server will start on port :3000 that will serve NagiosTV by serving the ../dist folder
 - The Node.js server will proxy requests to the Nagios server, bypassing some restrictions
 
-Proxying requests to your Nagios server using the Node.js server (coming soon)
+Proxying requests to your Nagios server using the Node.js server
 ------------
-We can proxy, or bounce the connection from the NagiosTV web application through the Node.js server (included) in order to bypass CORS restrictions on the browser, or to bypass other issues such as http protocol mismatch errors (when NagiosTV is served on a TLS https website, but your Nagios server is served on a http website). This capability does exist and is something that is working but I did not ship initially. I would like to enable this functionaly back in with configuration in-app.
+We can proxy, or bounce the connection from the NagiosTV web application through the Node.js server (included) in order to bypass CORS restrictions on the browser, or to bypass other issues such as http protocol mismatch errors (when NagiosTV is served on a TLS https website, but your Nagios server is served on a http website).
 
 Serving NagiosTV Option #2 - Using pre-built NagiosTV release on your own web server
 -------------
@@ -74,9 +74,9 @@ After setting the server, username, and password, if you are still having troubl
 Changes needed on the Nagios Apache server to enable CORS
 -------------
 
-You only need to do this change *IF* you want to have direct connect from the browser to the Nagios server. If you want to use the proxy method, then *no* changes are needed on the Nagios server.
+You only need to do this change *IF* you want to have direct connect from the browser to the Nagios server. If you are serving NagiosTV from your own web server and not using the built-in Node.js server then you need to make this change. If you want to use the proxy method, then *no* changes are needed on the Nagios server.
 
-At this time, the built-in Nagios CGIs do not support direct access from JavaScript access from a web page. Currently the Nagios server will return a 401 Unauthorized when the OPTIONS request is sent. Endpoints need to return a header Access-Control-Allow-Origin:* to the browser and in addition, when the browser sends an initial OPTIONS request to the server, the server needs to return a "200 OK" without authentication. To accomplish this, we make a few edits to the Apache server that is running the Nagios web interface:
+At this time, the built-in Nagios CGIs do not support direct access from JavaScript. Currently the Nagios server will return a 401 Unauthorized when the OPTIONS request is sent. Endpoints need to return a header Access-Control-Allow-Origin: * to the browser and in addition, when the browser sends an initial OPTIONS request to the server, the server needs to return a "200 OK" *without authentication*. To accomplish this, we make a few edits to the Apache server that is running the Nagios web interface:
 
 /etc/apache/sites-enabled/nagios.conf
 
@@ -93,7 +93,8 @@ At this time, the built-in Nagios CGIs do not support direct access from JavaScr
 </LimitExcept>
 ```
 
-Then restart or reload apache and make sure it is happy and serving the Nagios web interface.
+After the changes are made, restart or reload apache and make sure it is happy and serving the Nagios web interface.
+If I can find out who to talk to at Nagios about fixing this, I would like to get these changes added to Nagios core by default.
 
 Upgrading
 ------------
@@ -110,17 +111,7 @@ Upgrading if you are running a pre-built release with the Node.js web server
 - $ cd node
 - $ ./start.sh
 
-Upgrading and running a development build
-- $ cd nagiostv-4
-- $ git pull --rebase
-- $ ember serve
-- access your web server on the hostname and port ember.js shows you
 
-Upgrading and creating a build if you are running development
-- $ cd nagiostv-4
-- $ git pull --rebase
-- $ ember build
-- then copy the contents of the dist/ directory to your web server
 
 Development Requirements
 ------------
@@ -140,6 +131,18 @@ Development
 - $ ember serve
 - access your web server on the hostname and port ember.js shows you
 
+Upgrading your development build
+- $ cd nagiostv-4
+- $ git pull --rebase
+- $ ember serve
+- access your web server on the hostname and port Ember.js shows you
+
+Upgrading and creating a development build
+- $ cd nagiostv-4
+- $ git pull --rebase
+- $ ember build
+- then copy the contents of the dist/ directory to your web server
+
 TODO
 ------------
 Features to work on next
@@ -150,6 +153,7 @@ Features to work on next
 Credits
 ------------
 NagiosTV by Chris Carey http://chriscarey.com
+
 Your name here if you want to contribute
 
 
