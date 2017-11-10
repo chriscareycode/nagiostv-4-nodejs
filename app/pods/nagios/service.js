@@ -51,6 +51,7 @@ export default Ember.Service.extend({
   alertlist: [],
 
   dateLastUpdate: null,
+  dateLastUpdateUnix: null,
 
   /***************************************************************************
    * Computed Properties
@@ -310,6 +311,7 @@ export default Ember.Service.extend({
 
       // set last update date for display to the screen and use in various triggers
       that.set('dateLastUpdate', new Date());
+      that.set('dateLastUpdateUnix', new Date().getTime());
     });
 
     // TODO: move this onto it's own timer
