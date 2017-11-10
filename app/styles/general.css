@@ -4,6 +4,15 @@
   display: none;
 }
 
+
+.float-right {
+  float: right;
+}
+
+.float-left {
+  float: left;
+}
+
 /* font */
 
 .font-size-0-8 {

@@ -1,28 +1,28 @@
 
 <div class="padding-4">
+
+  <div class="float-right">
+    {{nagios-state-type (get servicedetail 'state_type')}}
+    {{nagios-service-status (get servicedetail 'status')}}
+    {{#if servicedetail.problem_has_been_acknowledged}}<span class="color-orange">ACKED</span>{{/if}}
+    {{#if servicedetail.is_flapping}} - <span class="color-orange">IS FLAPPING</span>{{/if}}
+  </div>
+
   <div>
     <strong>{{host}}</strong>
     {{!-- {{servicename}} --}}
     <span class={{stateClass}}>{{get servicedetail 'description'}} -
     {{get servicedetail "plugin_output"}}</span>
-
-    {{#if servicedetail.problem_has_been_acknowledged}}
-    <span class="color-orange">ACKED</span>
-    {{/if}}
   </div>
 
   <div>
-    state: {{nagios-state-type (get servicedetail 'state_type')}} -
-    status: {{nagios-service-status (get servicedetail 'status')}}
-    {{#if servicedetail.is_flapping}} - <span class="color-orange">IS FLAPPING</span>{{/if}}
 
-    <br>
-
-    <span class="font-size-0-8">
-    Last check: {{format-date (get servicedetail 'last_check')}} -
-    {{!-- last update: {{format-date (get servicedetail 'last_update')}} - --}}
-    Next check: {{format-date (get servicedetail 'next_check')}}
-    </span>
+    <div class="font-size-0-8">
+      Last check: <strong>{{format-date-ago (get servicedetail 'last_check')}}</strong> ago -
+      {{!-- last update: {{format-date (get servicedetail 'last_update')}} - --}}
+      {{!-- Next check: {{format-date (get servicedetail 'next_check')}} --}}
+      Next check: <strong>{{format-date-until (get servicedetail 'next_check')}}</strong>
+    </div>
   </div>
 </div>
 

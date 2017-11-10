@@ -154,6 +154,7 @@ TODO
 ------------
 Features to work on:
 - Fix support for Nagios elements with a period in the name
+- Upgrade Ember-CLI and get rid of bower
 
 Credits
 ------------
