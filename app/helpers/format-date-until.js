@@ -4,5 +4,12 @@ import Ember from 'ember';
 
 export default Ember.Helper.helper(function([date]) {
   var m = moment(date);
-  return m.format('MMM D YYYY, hh:mm:ss A');
+  const diff = m.diff(moment());
+  const tempTime = moment.duration(diff);
+
+  let ret = '';
+  if (tempTime.hours()) { ret += tempTime.hours() + 'h '}
+  if (tempTime.minutes()) { ret += tempTime.minutes() + 'm '}
+
+  return ret + tempTime.seconds() + 's';
 });
