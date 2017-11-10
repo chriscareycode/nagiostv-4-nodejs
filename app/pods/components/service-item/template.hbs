@@ -4,8 +4,8 @@
   <div class="float-right">
     {{nagios-state-type (get servicedetail 'state_type')}}
     {{nagios-service-status (get servicedetail 'status')}}
-    {{#if servicedetail.problem_has_been_acknowledged}}<span class="color-orange">ACKED</span>{{/if}}
-    {{#if servicedetail.is_flapping}} - <span class="color-orange">IS FLAPPING</span>{{/if}}
+    {{#if servicedetail.problem_has_been_acknowledged}}<span class="color-green">ACKED</span>{{/if}}
+    {{#if servicedetail.is_flapping}} - <span class="color-orange">FLAPPING</span>{{/if}}
   </div>
 
   <div>
