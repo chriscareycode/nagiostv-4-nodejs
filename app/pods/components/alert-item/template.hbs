@@ -3,15 +3,19 @@
 {{index}}
 
 
+
+
 {{#if (if-cond item.object_type '===' 1)}}
   HOST
-  {{item.name}}
+  <strong>{{item.name}}</strong>
 {{/if}}
 
 {{#if (if-cond item.object_type '===' 2)}}
   SERVICE
-  {{get item 'description'}} on {{get item 'host_name'}}
+  <strong>{{get item 'description'}}</strong> on <strong>{{get item 'host_name'}}</strong>
 {{/if}}
+
+
 
 
 {{!-- {{#if item.name}}
@@ -23,10 +27,16 @@
 <span class={{stateClass}}>{{get item "plugin_output"}}</span>
 
 -
+{{!-- State Type: SOFT or HARD --}}
+{{stateTypeString}} ({{item.state_type}})
+
+{{!-- State: OK WARNING CRITICAL UNKNOWN --}}
+<span class={{stateClass}}>
+{{stateString}} ({{item.state}})
+</span>
 
 
-state: {{item.state}}
-state_type: {{stateTypeString}} ({{item.state_type}})
+
 
 {{!-- {{nagios-alert-type (get item 'state_type')}}
 
