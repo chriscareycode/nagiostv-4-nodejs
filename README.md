@@ -36,15 +36,6 @@ This can be accomplished with a simple iframe tag for each region
 
 ![Display](http://chriscarey.com/projects/ajax-monitor-for-nagios/nagios-5-in-1.png)
 
-Running NagiosTV
--------------
-We are now able to connect the web application direct to Nagios CGIs with a couple changes on the Nagios Apache server.
-
-There are a few options to run NagiosTV
-You can run the development build, or you can run with the pre-built release.
-The pre-built release will untar with a dist/ and a node/ folder
-The node server included is optional and can be used to serve the NagiosTV web interface and proxy requests.
-
 Security
 -------------
 This is a new project and has a lot of room for improvement before it is ready for use on the public Internet. The first issue would be if your Nagios server web interface is not using TLS (https), the password can be sent in the clear (in the http header). Installing TLS on your Apache server can solve this. The second issue would be the Node.js proxy which allows the web page to communicate to other remote endpoints. An open proxy is bad news on the Internet. Keep this project inside on your private network. If you want to access it remotely, then do so with VPN.
@@ -57,6 +48,7 @@ Running the Node.js web server is optional and offers these features:
 - Nagios username and password can be stored and saved on the server so it is not sent from the browser
 
 To start it:
+- Install Node.js https://nodejs.org/en/
 - Open a new terminal.
 - Change directory to node/
 - Run ./start.sh
