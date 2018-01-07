@@ -51,6 +51,30 @@ function loadSettingsJson() {
   }
 }
 
+function clearSettings(req, res) {
+  let stats;
+  try {
+    stats = fs.lstatSync('settings-json.js');
+  } catch (e) {
+    console.log('settings-json.js file not found');
+  }
+  if (stats && stats.isFile()) {
+    // delete the file
+    fs.unlink('settings-json.js', (err) => {
+      if (err) throw err;
+      console.log('successfully deleted settings-json.js');
+
+      res.json({
+        status: 'settings-json.js cleared'
+      });
+    });
+  } else {
+    res.json({
+      status: 'settings-json.js file not found'
+    });
+  }
+}
+
 function sendSettings(req, res) {
   console.log('sendSettings()');
   // Send settings but without password
@@ -105,6 +129,11 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use('/', express.static('../dist'));
+
+// GET Clear settings
+app.get('/settings-clear', function(req, res) {
+   clearSettings(req, res);
+});
 
 // GET Load settings
 app.get('/settings', function(req, res) {
