@@ -69,6 +69,9 @@ We can proxy, or bounce the connection from the NagiosTV web application through
 
 Serving NagiosTV Option #2 - Using pre-built NagiosTV release on your own web server
 -------------
+
+If you want to use your own web server to serve the NagiosTV web app, and not use the Node.js server, then you can follow this part.
+
 Download the latest nagios release from https://github.com/chriscareycode/nagiostv-4/releases
 Copy the contents of the dist/ folder to your web server
 Access the web server to run NagiosTV
