@@ -34,12 +34,12 @@ catch (e) {
   process.exit();
 }
 
-loadSettings();
+loadSettingsJson();
 
 //=============================================================================
 // loadSettings and saveSettings
 //=============================================================================
-function loadSettings() {
+function loadSettingsJson() {
   // Load the settings-json.js file, if it exists
   try {
     const stats = fs.lstatSync('settings-json.js');
