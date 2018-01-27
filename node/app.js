@@ -26,11 +26,11 @@ let settingsJson;
 // Load the settings.js file, if it exists
 try {
   const stats = fs.lstatSync('settings.js');
-  if (stats.isFile()) { console.log('settings.js file found.'); }
+  if (stats.isFile()) { console.log('settings.js file found. This is where the Node.js server settings are stored.'); }
   settings = require('./settings');
 }
 catch (e) {
-  console.log('Copy the file settings.dist.js to settings.js and edit settings.js');
+  console.log('Copy the file settings.dist.js to settings.js and edit settings.js if you want to. The settings.js file will not be overwritten by updates.');
   process.exit();
 }
 
@@ -47,7 +47,7 @@ function loadSettings() {
     settingsJson = require('./settings-json');
     console.log(settingsJson.nagiosServerHost);
   } catch (e) {
-    console.log('No settings-json.js found');
+    console.log('No settings-json.js found. This is where the webUI will store it\'s settings, once you save them to the server.');
   }
 }
 
@@ -139,3 +139,6 @@ app.get('/nagios/:resource', requestProxy(proxyOptions));
 app.listen(settings.serverPort);
 
 console.log('Listening on port ' + settings.serverPort + '...');
+console.log(' ');
+console.log('You can now open a web browser to http://127.0.0.1:' + settings.serverPort);
+console.log('(Replace 127.0.0.1 with your IP address, if needed.)');

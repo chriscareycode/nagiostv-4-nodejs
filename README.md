@@ -40,63 +40,29 @@ Security
 -------------
 This is a new project and has a lot of room for improvement before it is ready for use on the public Internet. The first issue would be if your Nagios server web interface is not using TLS (https), the password can be sent in the clear (in the http header). Installing TLS on your Apache server can solve this. The second issue would be the Node.js proxy which allows the web page to communicate to other remote endpoints. An open proxy is bad news on the Internet. Keep this project inside on your private network. If you want to access it remotely, then do so with VPN.
 
-Serving NagiosTV Option #1 - NagiosTV with the Node.js web server
+Download NagiosTV
 -------------
-Running the Node.js web server is optional and offers these features:
+Download NagiosTV releases from https://github.com/chriscareycode/nagiostv-4/releases
+If you `git clone` this project, you will have uncompiled Ember.js code and need to follow the Development section down below to create the dist/ folder. 
+
+Running NagiosTV with the Node.js web server
+-------------
+Running the Node.js web server offers these features:
 - Serves the NagiosTV web application on port :3000
 - Can proxy requests to and from your Nagios server
 - Nagios username and password can be stored and saved on the server so it is not sent from the browser
 
 To start it:
-- Install Node.js https://nodejs.org/en/
+- Install Node.js https://nodejs.org/
 - Open a new terminal.
 - Change directory to node/
 - Run ./start.sh
 - A web server will start on port :3000 that will serve NagiosTV by serving the ../dist folder
-- The Node.js server will proxy requests to the Nagios server, bypassing some restrictions
+- The Node.js server will proxy requests to the Nagios server
 
-Proxying requests to your Nagios server using the Node.js server
+Running NagiosTV on your own web server without using the Node.js server
 ------------
-We can proxy, or bounce the connection from the NagiosTV web application through the Node.js server (included) in order to bypass CORS restrictions on the browser, or to bypass other issues such as http protocol mismatch errors (when NagiosTV is served on a TLS https website, but your Nagios server is served on a http website).
-
-Serving NagiosTV Option #2 - Using pre-built NagiosTV release on your own web server
--------------
-
-If you want to use your own web server to serve the NagiosTV web app, and not use the Node.js server, then you can follow this part.
-
-Download the latest nagios release from https://github.com/chriscareycode/nagiostv-4/releases
-Copy the contents of the dist/ folder to your web server
-Access the web server to run NagiosTV
-Configure the Settings within NagiosTV
-Save the settings (settings will be saved to your browser)
-NagiosTV will connect directly to your Nagios server
-* After setting the server, username, and password, if you are still having trouble connecting, check the web browser developer console for errors.
-* Depending on your configuration, your browser may be sending authentication information to the Nagios server in the clear. To solve this, use the Node.js server method, or enable TLS on your Nagios Apache web interface.
-
-Changes needed on the Nagios Apache server to enable CORS
--------------
-
-You only need to do this change *IF* you want to have direct connect from the browser to the Nagios server. If you are serving NagiosTV from your own web server and not using the built-in Node.js server then you need to make this change. If you want to use the proxy method, then *no* changes are needed on the Nagios server.
-
-At this time, the built-in Nagios CGIs do not support direct access from JavaScript. Currently the Nagios server will return a 401 Unauthorized when the OPTIONS request is sent. Endpoints need to return a header Access-Control-Allow-Origin: * to the browser and in addition, when the browser sends an initial OPTIONS request to the server, the server needs to return a "200 OK" *without authentication*. To accomplish this, we make a few edits to the Apache server that is running the Nagios web interface:
-
-/etc/apache/sites-enabled/nagios.conf
-
-```html
-# Inside <Directory> add these to add CORS headers
-
-  Header set Access-Control-Allow-Headers "authorization" 
-  Header always set Access-Control-Allow-Origin "*"
-
-# Then, wrap the Require valid-user with this <LimitExcept>
-
-<LimitExcept OPTIONS>
-  Require valid-user
-</LimitExcept>
-```
-
-After the changes are made, restart or reload apache and make sure it is happy and serving the Nagios web interface.
-If I can find out who to talk to at Nagios about fixing this, I would like to get these changes added to Nagios core by default.
+You can do this but it is not the recommended method. Read more in the README-SELF-HOSTED.md file.
 
 Upgrading
 ------------
@@ -109,11 +75,9 @@ Upgrading if you are running a pre-built release of NagiosTV and using the built
 - $ ./start.sh
 - Connect to the server in a web browser
 
-Upgrading if you are running a pre-built release on your own web server
-- Download the new release nagiostv-x.x.x.tar.gz
-- tar xvfz nagiostv-x.x.x.tar.gz
-- Copy the contents of the dist/ folder to your web server inside the old NagiosTV folder
-- Connect to the server in a web browser
+
+Development instructions below. If you download this project by running `git clone` on the project from GitHub, then you will need to follow this section
+------------
 
 Development Requirements
 ------------
@@ -122,16 +86,16 @@ Development Requirements
 - Ember.js
 - Bower
 
-Development
+Development Instructions
 ------------
-- npm install -g ember
-- npm install -g bower
 - git clone https://github.com/chriscareycode/nagiostv-4.git
+- npm install -g ember-cli
+- npm install -g bower
 - $ cd nagiostv-4
 - $ npm install
 - $ bower install
 - $ ember serve
-- access your web server on the hostname and port ember.js shows you
+- access your web server on the hostname and port ember.js shows you, and you can start editing files
 
 Upgrading your development build
 - $ cd nagiostv-4
