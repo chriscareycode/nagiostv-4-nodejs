@@ -27,6 +27,11 @@
       Node Server protocol and host/ip:
       <div>{{input type='text' value=nagios.settings.nodeServerHost}}</div>
     </div>
+
+    <div class="margin-top-10">
+      Node Server path:
+      <div>{{input type='text' value=nagios.settings.nodeServerPath}}</div>
+    </div>
 {{/if}}
 
     <div class="margin-top-10">
@@ -58,6 +63,10 @@
       <div>{{input type='password' value=nagios.settings.password}}</div>
     </div>
 {{/if}}
+
+    <div class="margin-top-10">
+      <label>{{input type='checkbox' checked=nagios.settings.showUnknownServiceItems}} Show UNKNOWN status service items:</label>
+    </div>
 
     <div class="margin-top-10">
 {{#if isProxy}}

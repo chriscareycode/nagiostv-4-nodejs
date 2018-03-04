@@ -31,7 +31,8 @@ export default Ember.Service.extend({
     nagiosServerCgiPath: '/nagios/cgi-bin',
     auth: true,
     username: 'nagiosadmin',
-    password: ''
+    password: '',
+    showUnknownServiceItems: false
   },
 
   //cgi-bin/statusjson.cgi
@@ -125,6 +126,13 @@ export default Ember.Service.extend({
       console.log('fetchProxySettings success');
       console.log(data);
       console.log('Overwriting local settings with server settings');
+
+      // add any new settings since we have a catch22 where the missing setting will overwrite from the server
+      // set defaults on those new settings here
+      if (!data.hasOwnProperty('showUnknownServiceItems')) {
+        data.showUnknownServiceItems = false;
+      }
+      // save the settings from the node server into local settings
       this.set('settings', data);
     }, (err) => {
       console.log('fetchProxySettings error');
@@ -150,6 +158,8 @@ export default Ember.Service.extend({
 
   saveProxySettings: function() {
     console.log('saveProxySettings()');
+
+    console.log(this.settings);
 
     // save a subset of the settings locally
     const localSettings = {};
@@ -243,7 +253,7 @@ export default Ember.Service.extend({
           resolve(data);
         },
         error: function(fail) {
-          console.log('getJSON failure', fail);
+          console.log('getJSON failure - ' + url, fail);
           reject(fail);
         }
       });
@@ -302,7 +312,15 @@ export default Ember.Service.extend({
       console.log('err', err);
       this.set('connectionStatus', 'Problem');
       this.set('connectionError', true);
-      this.set('connectionErrorMessage', 'Error ' + err.status + ' ' + err.statusText);
+
+      switch(err.status) {
+        case 401:
+          this.set('connectionErrorMessage', 'Error ' + err.status + ' ' + err.statusText + ' - Check the username and password on the settings screen and save.');
+          break;
+        default:
+          this.set('connectionErrorMessage', 'Error ' + err.status + ' ' + err.statusText);
+          break;
+      }
     });
 
     this.getJSON(baseUrl + basePath + '/statusjson.cgi?query=servicelist&details=true').then(function(data) {

@@ -56,12 +56,14 @@ function sendSettings(req, res) {
   // Send settings but without password
   const settingsWithoutPassword = Object.assign({}, settingsJson, {
     password: ''
-  })
+  });
+  console.log(settingsWithoutPassword);
   res.json(settingsWithoutPassword);
 }
 
 function saveSettings(req, res) {
   console.log('saveSettings()');
+  //console.log(req.body);
 
   if (!req.body) {
     console.log('saveSettings() no data so no save');
@@ -78,6 +80,8 @@ function saveSettings(req, res) {
       return console.log(err);
     }
     console.log("The file was saved!");
+    console.log(text);
+
     res.send({
       success: true,
       successMessage: 'Thanks for the settings.'

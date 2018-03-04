@@ -2,6 +2,8 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
 
+  nagios: Ember.inject.service(),
+
   atLeastOneServiceDownOrFlapping: Ember.computed('nagios.dateLastUpdate', function() {
     let servicelist = this.get('nagios.servicelist');
     let onedown = false;

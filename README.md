@@ -115,6 +115,8 @@ Features to work on:
 - Fix support for Nagios elements with a period in the name
 - Upgrade Ember-CLI and get rid of bower
 
+- Everything is blank on first start. Set a sensible default
+
 Credits
 ------------
 NagiosTV by Chris Carey http://chriscarey.com
