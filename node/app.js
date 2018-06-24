@@ -34,12 +34,12 @@ catch (e) {
   process.exit();
 }
 
-loadSettings();
+loadSettingsJson();
 
 //=============================================================================
 // loadSettings and saveSettings
 //=============================================================================
-function loadSettings() {
+function loadSettingsJson() {
   // Load the settings-json.js file, if it exists
   try {
     const stats = fs.lstatSync('settings-json.js');
@@ -48,6 +48,30 @@ function loadSettings() {
     console.log('Nagios Server: ' + settingsJson.nagiosServerHost);
   } catch (e) {
     console.log('No settings-json.js found. This is where the webUI will store it\'s settings, once you save them to the server.');
+  }
+}
+
+function clearSettings(req, res) {
+  let stats;
+  try {
+    stats = fs.lstatSync('settings-json.js');
+  } catch (e) {
+    console.log('settings-json.js file not found');
+  }
+  if (stats && stats.isFile()) {
+    // delete the file
+    fs.unlink('settings-json.js', (err) => {
+      if (err) throw err;
+      console.log('successfully deleted settings-json.js');
+
+      res.json({
+        status: 'settings-json.js cleared'
+      });
+    });
+  } else {
+    res.json({
+      status: 'settings-json.js file not found'
+    });
   }
 }
 
@@ -109,6 +133,11 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use('/', express.static('../frontend-emberjs/dist'));
+
+// GET Clear settings
+app.get('/settings-clear', function(req, res) {
+   clearSettings(req, res);
+});
 
 // GET Load settings
 app.get('/settings', function(req, res) {
