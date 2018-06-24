@@ -1,0 +1,71 @@
+/* general html */
+
+body {
+  background-color: #000;
+  color: #fff;
+  font-family: sans-serif;
+}
+
+h2 {
+  margin: 9px 0;
+}
+
+/* nagiostv elements */
+
+.service-item {
+  margin: 6px 0px 6px 0px;
+  border-radius: 5px;
+  background-color: #232323;
+  overflow: hidden;
+}
+
+.notification-item {
+  padding: 4px;
+  margin: 6px 0px 6px 0px;
+  border-radius: 5px;
+  border: 0px solid #555;
+  background-color: #232323;
+  opacity: 0.7;
+}
+
+.alert-item {
+  padding: 4px;
+  margin: 6px 0px 6px 0px;
+  border-radius: 5px;
+  border: 0px solid #555;
+  background-color: #232323;
+  opacity: 0.7;
+}
+
+/* animate */
+
+.animate-open {
+  animation: slideOpen 1s;
+}
+
+.animate-close {
+  animation: slideClose 1s;
+}
+
+@keyframes slideOpen {
+    from {
+      max-height: 0px;
+      opacity: 0;
+    }
+    to {
+      max-height: 70px;
+      opacity: 1;
+    }
+}
+
+@keyframes slideClose {
+    from {
+      max-height: 70px;
+      opacity: 1;
+    }
+    to {
+      max-height: 0px;
+      opacity: 0;
+      border: 0;
+    }
+}

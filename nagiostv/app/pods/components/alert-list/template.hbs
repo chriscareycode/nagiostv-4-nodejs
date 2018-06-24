@@ -1,0 +1,46 @@
+
+
+
+
+{{#each alertlist as |item index|}}
+
+  {{!-- show quiet for --}}
+  {{!-- if the first item then time since now --}}
+  {{!-- otherwise time since previous entry --}}
+  {{#if (if-cond index '===' 0)}}
+  <div style="margin: 16px 0px 16px 0px;color: #01A901;">
+
+    {{quiet-for-latest
+      timestamp=item.timestamp
+      index=index
+      notificationlist=alertlist
+      updateTrigger=dateLastUpdate
+    }}
+
+
+
+  </div>
+  {{else}}
+
+    {{#if (if-quiet-for item.timestamp index 60 alertlist)}}
+  <div style="margin: 16px 0px 16px 0px;color: #01A901;">
+
+    {{quiet-for-latest
+      timestamp=item.timestamp
+      index=index
+      notificationlist=alertlist
+      updateTrigger=alertlist.length
+    }}
+
+  </div>
+    {{/if}}
+
+  {{/if}}
+
+  {{alert-item
+    item=item
+  }}
+
+{{/each}}
+
+{{yield}}

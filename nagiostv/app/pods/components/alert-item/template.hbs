@@ -1,0 +1,49 @@
+{{!-- show notification-item --}}
+
+{{index}}
+
+
+
+
+{{#if (if-cond item.object_type '===' 1)}}
+  HOST
+  <strong>{{item.name}}</strong>
+{{/if}}
+
+{{#if (if-cond item.object_type '===' 2)}}
+  SERVICE
+  <strong>{{get item 'description'}}</strong> on <strong>{{get item 'host_name'}}</strong>
+{{/if}}
+
+
+
+
+{{!-- {{#if item.name}}
+{{item.name}}
+{{else}}
+{{get item 'description'}} on {{get item 'host_name'}}
+{{/if}} --}}
+-
+<span class={{stateClass}}>{{get item "plugin_output"}}</span>
+
+-
+{{!-- State Type: SOFT or HARD --}}
+{{stateTypeString}} ({{item.state_type}})
+
+{{!-- State: OK WARNING CRITICAL UNKNOWN --}}
+<span class={{stateClass}}>
+{{stateString}} ({{item.state}})
+</span>
+
+
+
+
+{{!-- {{nagios-alert-type (get item 'state_type')}}
+
+({{get item 'state_type'}}) --}}
+
+-
+
+{{format-date (get item 'timestamp')}}
+
+{{yield}}

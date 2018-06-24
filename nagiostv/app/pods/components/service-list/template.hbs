@@ -1,0 +1,38 @@
+<div class="color-orange" style="margin:10px 0 10px 0;">
+  Service Problems: <strong>{{nagios.servicelistDownCount}}</strong>
+</div>
+{{!-- {{/if}} --}}
+
+{{!-- {{#if (if-cond nagios.servicelistDownCount '===' 0)}} --}}
+{{#unless atLeastOneServiceDownOrFlapping}}
+<div class="service-item color-green font-size-1-2 animate-open">
+  <div class="padding-4">
+    All <strong>{{nagios.servicelistCount}}</strong> services are UP
+  </div>
+</div>
+{{/unless}}
+
+{{#each-in nagios.servicelist as |host service|}}
+  {{!-- each host --}}
+  <div>
+  {{#each-in service as |servicename servicedetail|}}
+    {{!-- each service in each host --}}
+
+    {{!-- flapping and status 2 (remind me what status 2 is again?) --}}
+    {{#if (if-cond servicedetail.is_flapping '||' (if-cond servicedetail.status '!==' 2))}}
+
+      {{!-- hide unknown status items if the user wants to. this prevents every service from reporting on the UI when a host is down --}}
+      {{#unless (if-cond (if-cond nagios.settings.showUnknownServiceItems '===' false) '&&' (if-cond servicedetail.status '===' 8))}}
+
+        {{service-item
+          host=host
+          servicename=servicename
+          servicedetail=servicedetail
+        }}
+
+      {{/unless}}
+
+    {{/if}}
+  {{/each-in}}
+  </div>
+{{/each-in}}
