@@ -45,7 +45,7 @@ function loadSettings() {
     const stats = fs.lstatSync('settings-json.js');
     if (stats.isFile()) { console.log('settings-json.js file found.'); }
     settingsJson = require('./settings-json');
-    console.log(settingsJson.nagiosServerHost);
+    console.log('Nagios Server: ' + settingsJson.nagiosServerHost);
   } catch (e) {
     console.log('No settings-json.js found. This is where the webUI will store it\'s settings, once you save them to the server.');
   }
@@ -108,7 +108,7 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
-app.use('/', express.static('../dist'));
+app.use('/', express.static('../frontend-emberjs/dist'));
 
 // GET Load settings
 app.get('/settings', function(req, res) {
@@ -124,13 +124,22 @@ function decorateProxyOptions() {
   if (!settingsJson) {
     return;
   }
+
   proxyOptions.url = settingsJson.nagiosServerHost + settingsJson.nagiosServerCgiPath + '/:resource';
+
+  // Add auth if it is enabled
   if (settingsJson.auth) {
     proxyOptions.headers = {
       Authorization: "Basic " + new Buffer(settingsJson.username + ':' + settingsJson.password).toString('base64')
     };
   }
-  //console.log('proxyOptions is', proxyOptions);
+
+  proxyOptions.transform = function(req, res) {
+    console.log('transform');
+    console.log(req);
+  }
+
+  console.log('proxyOptions is', proxyOptions);
 }
 
 // Proxy to Nagios server
@@ -146,3 +155,4 @@ console.log('Listening on port ' + settings.serverPort + '...');
 console.log(' ');
 console.log('You can now open a web browser to http://127.0.0.1:' + settings.serverPort);
 console.log('(Replace 127.0.0.1 with your IP address, if needed.)');
+console.log(' ');
