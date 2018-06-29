@@ -403,9 +403,9 @@ export default Service.extend({
               //console.log('N ', the_object, d.path[0], obj_raw_data.data[obj_name][d.path[0]]);
               //console.log('N', the_object instanceof Array);
               if (the_object instanceof Array) {
-                set(the_object, d.path[0].toString(), obj_raw_data.data[obj_name][d.path[0]]);
+                set(the_object, d.path[0].toString().replace(/\./g, '-'), obj_raw_data.data[obj_name][d.path[0]]);
               }else {
-                set(the_object, d.path[0], obj_raw_data.data[obj_name][d.path[0]]);
+                set(the_object, d.path[0].replace(/\./g, '-'), obj_raw_data.data[obj_name][d.path[0]]);
               }
             } else {
               console.log('N unknown d', d);
