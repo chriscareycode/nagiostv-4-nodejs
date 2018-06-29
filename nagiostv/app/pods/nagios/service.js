@@ -420,9 +420,9 @@ export default Service.extend({
               //console.log('E ', the_object, d.path[0], obj_raw_data.data[obj_name][d.path[0]]);
               //console.log('E', the_object instanceof Array);
               if (the_object instanceof Array) {
-                set(the_object[d.path[0]], d.path[1].toString(), obj_raw_data.data[obj_name][d.path[0]][d.path[1]]);
+                set(the_object[d.path[0]], d.path[1].toString().replace(/\./g, '-'), obj_raw_data.data[obj_name][d.path[0]][d.path[1]]);
               } else {
-                set(the_object[d.path[0]], d.path[1], obj_raw_data.data[obj_name][d.path[0]][d.path[1]]);
+                set(the_object[d.path[0]], d.path[1].replace(/\./g, '-'), obj_raw_data.data[obj_name][d.path[0]][d.path[1]]);
               }
             } else {
               console.log('E unknown d', d);
