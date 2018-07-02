@@ -1,5 +1,5 @@
 {
-  "name": "noderest",
+  "name": "nagiostv-proxy",
   "description": "REST API with Node",
   "version": "0.0.1",
   "private": true,

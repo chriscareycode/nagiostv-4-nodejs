@@ -15,6 +15,8 @@ if test -f "/usr/bin/nodejs"; then
   NODE="/usr/bin/nodejs"
 fi
 
+echo "**********************************************************************************************"
 echo "Make sure to run 'npm install' first, which will install all the files needed for this to run."
+echo "**********************************************************************************************"
 
 $NODE app.js
