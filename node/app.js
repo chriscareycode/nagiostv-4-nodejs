@@ -30,7 +30,10 @@ try {
   settings = require('./settings');
 }
 catch (e) {
+  console.log('****************************************************************************************************************');
+  console.log('No settings.js file found. This is where the Node.js server settings are stored.')
   console.log('Copy the file settings.dist.js to settings.js and edit settings.js if you want to. The settings.js file will not be overwritten by updates.');
+  console.log('****************************************************************************************************************');
   process.exit();
 }
 
@@ -47,7 +50,10 @@ function loadSettingsJson() {
     settingsJson = require('./settings-json');
     console.log('Nagios Server: ' + settingsJson.nagiosServerHost);
   } catch (e) {
+    console.log('****************************************************************************************************************');
     console.log('No settings-json.js found. This is where the webUI will store it\'s settings, once you save them to the server.');
+    console.log('You can copy the file settings-json.dist.js to settings-json.js and edit the file manually. The settings-json.js file will not be overwritten by updates.');
+    console.log('****************************************************************************************************************');
   }
 }
 
@@ -132,7 +138,7 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
-app.use('/', express.static('../frontend-emberjs/dist'));
+app.use('/', express.static('../dist'));
 
 // GET Clear settings
 app.get('/settings-clear', function(req, res) {
@@ -153,7 +159,8 @@ app.post('/settings', function(req, res) {
 //* Start Proxy
 //***********************************************************************
 
-const proxyUrl = settingsJson.nagiosServerHost + settingsJson.nagiosServerCgiPath + '/:resource';
+let proxyUrl = '';
+if (settingsJson) { proxyUrl = settingsJson.nagiosServerHost + settingsJson.nagiosServerCgiPath + '/:resource'; }
 console.log('Will proxy requests to ' + proxyUrl);
 
 var proxyOptions = {
@@ -164,7 +171,7 @@ var proxyOptions = {
 };
 
 // Add auth if it is enabled
-if (settingsJson.auth) {
+if (settingsJson && settingsJson.auth) {
   proxyOptions.headers = {
     Authorization: "Basic " + new Buffer(settingsJson.username + ':' + settingsJson.password).toString('base64')
   };
