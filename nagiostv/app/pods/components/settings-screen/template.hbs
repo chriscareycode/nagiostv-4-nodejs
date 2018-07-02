@@ -1,0 +1,92 @@
+
+
+<div class="settings-screen">
+
+  <h4>NagiosTV Configuration</h4>
+
+  <div style="border: 2px solid #ccc;padding: 10px;">
+
+    <div class="margin-top-10">
+      Title:
+      <div>{{input type='text' value=nagios.settings.title}}</div>
+    </div>
+
+    <h4 class="margin-top-10" style="color: orange;">
+      <label>{{radio-button value="direct" name="connectionStyle" selection=nagios.settings.connectionStyle}} Direct Connect to Nagios </label>
+      <label>{{radio-button value="proxy" name="connectionStyle" selection=nagios.settings.connectionStyle}} Proxy to Nagios</label>
+    </h4>
+
+{{#if isProxy}}
+<div style="color: orange;font-size: 0.9em;border: 1px solid orange;margin: 5px;margin-left: 0;padding: 5px;border-radius: 4px;">If you are connecting with proxy, then you need to be running the Node.js server. Check the README.md for more information.</div>
+{{else}}
+<div style="color: orange;font-size: 0.9em;border: 1px solid orange;margin: 5px;margin-left: 0;padding: 5px;border-radius: 4px;">If you are doing direct connect, then you need to make a few changes to your Apache server on Nagios. Check the README.md for more information.</div>
+{{/if}}
+
+{{#if isProxy}}
+    <div class="margin-top-10">
+      Node Server protocol and host/ip and port (http://127.0.0.1:3000):
+      <div>{{input type='text' value=nagios.settings.nodeServerHost}}</div>
+    </div>
+
+    <div class="margin-top-10">
+      Node Server path:
+      <div>{{input type='text' value=nagios.settings.nodeServerPath}}</div>
+    </div>
+{{/if}}
+
+    <div class="margin-top-10">
+      Nagios Server protocol and host/ip:
+      <div>{{input type='text' value=nagios.settings.nagiosServerHost}}</div>
+    </div>
+
+    <div class="margin-top-10">
+      Nagios Server CGI Path:
+      <div>{{input type='text' value=nagios.settings.nagiosServerCgiPath}}</div>
+    </div>
+
+    <div class="margin-top-10">
+      Nagios Server Authentication Enabled:
+      <div>
+        <label>{{radio-button value="true" name="auth" selection=nagios.settings.auth}} yes </label>
+        <label>{{radio-button value="false" name="auth" selection=nagios.settings.auth}} no</label>
+      </div>
+    </div>
+
+{{#if isAuth}}
+    <div class="margin-top-10">
+      Nagios Server Username:
+      <div>{{input type='text' value=nagios.settings.username}}</div>
+    </div>
+
+    <div class="margin-top-10">
+      Nagios Server Password:
+      <div>{{input type='password' value=nagios.settings.password}}</div>
+    </div>
+{{/if}}
+
+    <div class="margin-top-10">
+      <label>{{input type='checkbox' checked=nagios.settings.showUnknownServiceItems}} Show UNKNOWN status service items:</label>
+    </div>
+
+    <div class="margin-top-10">
+{{#if isProxy}}
+      <button {{action 'saveProxyAction'}}>Save to Proxy</button>
+      <button {{action 'eraseProxyAction'}}>Erase from Proxy</button>
+{{else}}
+      <button {{action 'saveAction'}}>Save to Local</button>
+      <button {{action 'eraseAction'}}>Erase from Local</button>
+{{/if}}
+      {{#if saveMessage}}
+        <span style="color: lime">{{saveMessage}}</span>
+      {{/if}}
+
+      <div class="margin-top-10">
+        {{#link-to 'application'}}<button>Close Settings</button>{{/link-to}}
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+{{yield}}
