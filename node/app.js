@@ -168,6 +168,10 @@ var proxyOptions = {
   proxyReqPathResolver: function(req) {
     if (settings.debug) { console.log('Proxying to URL: ' + proxyUrl + req.url); }
     return require('url').parse(req.url).path;
+  },
+  proxyReqOptDecorator: function(proxyReqOpts, originalReq) {
+    proxyReqOpts.rejectUnauthorized = false
+    return proxyReqOpts;
   }
 };
 
