@@ -20,7 +20,7 @@ import $ from 'jquery';
 export default Service.extend({
 
   currentVersion: 5,
-  currentVersionString: '1.3.0',
+  currentVersionString: '1.3.1',
   latestVersion: 0,
   latestVersionString: '',
   newVersionAvailable: false,
