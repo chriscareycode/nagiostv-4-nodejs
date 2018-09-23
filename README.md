@@ -1,4 +1,4 @@
-# NagiosTV (Nagios 4 written in EmberJS with Node.js sidecar)
+# NagiosTV (for Nagios 4) EmberJS with Node.js sidecar
 
 ```diff
 - There is a new project for NagiosTV which is now getting updates.
