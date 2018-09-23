@@ -1,5 +1,11 @@
 # NagiosTV for Nagios 4
 
+```diff
+- There is a new project for NagiosTV which is now getting updates.
+- If you are running Nagios 4.0.7 or newer, I suggest you check out
+- the NagiosTV project over at https://github.com/chriscareycode/nagiostv-react
+```
+
 This is a version of NagiosTV for Nagios 4.x servers.
 
 Nagios Core 4.0.7 and newer comes with new JSON CGI's
